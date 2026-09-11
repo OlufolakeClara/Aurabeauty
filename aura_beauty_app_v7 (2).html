@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#1A1A1A"/>
+<title>AURA Beauty</title>
+</head>
+<body style="margin:0;padding:0;background:#F3F4F6">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F3F4F6;--white:#fff;--ch:#1A1A1A;--mid:#6B7280;--soft:#9CA3AF;--bd:rgba(0,0,0,0.07);--rose:#C8A296;--gold:#C9A84C;--blue:#EBF3FB;--purple:#F0EDFB;--peach:#FAF0EB}
+html,body{height:100%}
+
+/* ── RESPONSIVE DEVICE ENGINE (base) ── */
+.canvas{width:100%;min-height:700px}
+.app{width:390px;margin:0 auto;font-family:'Inter',sans-serif;background:var(--bg);height:700px;position:relative;overflow:hidden;border-radius:44px;box-shadow:0 40px 80px -20px rgba(0,0,0,0.22)}
+
+.sc{display:none;flex-direction:column;height:100%;position:absolute;inset:0;background:var(--bg);border-radius:44px;overflow:hidden}
+.sc.on{display:flex;z-index:1}
+.scr{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1}
+.scr::-webkit-scrollbar{display:none}
+.sb{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 0;font-size:13px;font-weight:600;color:var(--ch);flex-shrink:0;position:relative}
+.notch{width:110px;height:26px;background:var(--ch);border-radius:0 0 18px 18px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2}
+.sbr{display:flex;align-items:center;gap:5px}
+.bnav{position:absolute;bottom:14px;left:14px;right:14px;height:66px;background:rgba(255,255,255,0.93);backdrop-filter:blur(20px);border-radius:100px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px -8px rgba(0,0,0,0.14);display:flex;align-items:center;justify-content:space-around;padding:0 6px;z-index:100}
+.nb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 12px;cursor:pointer;border:none;background:transparent;flex:1}
+.nb svg{width:21px;height:21px;stroke:var(--soft);stroke-width:1.5;fill:none;transition:stroke .2s}
+.nb.on svg{stroke:var(--ch)}
+.nb span{font-size:9px;color:var(--soft);font-weight:600;letter-spacing:.04em}
+.nb.on span{color:var(--ch)}
+.camb{width:50px;height:50px;background:var(--ch);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:3px solid rgba(255,255,255,0.8);box-shadow:0 4px 16px -4px rgba(0,0,0,.40);flex-shrink:0}
+.camb svg{width:21px;height:21px;stroke:white;stroke-width:1.5;fill:none}
+.toast{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-16px);background:rgba(26,26,26,0.92);color:white;font-size:12px;font-weight:500;padding:9px 18px;border-radius:100px;white-space:nowrap;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;font-family:'Inter',sans-serif}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.ovl{display:none;position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:200;align-items:flex-end;border-radius:44px}
+.ovl.show{display:flex}
+.sheet{background:var(--white);border-radius:32px 32px 44px 44px;padding:22px 20px 34px;width:100%;animation:su .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes su{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.hdl{width:36px;height:4px;background:#E0E0E0;border-radius:10px;margin:0 auto 16px}
+.sopt{display:flex;align-items:center;gap:14px;padding:13px 14px;border-radius:16px;border:1.5px solid var(--bd);cursor:pointer;background:var(--white);margin-bottom:10px;width:100%;font-family:'Inter',sans-serif;text-align:left}
+.sopt:hover{background:var(--bg)}
+.soi{width:40px;height:40px;border-radius:12px;background:#F0F0F0;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.soi svg{width:20px;height:20px;stroke:var(--ch);stroke-width:1.5;fill:none}
+.soh h4{font-size:13px;font-weight:600;color:var(--ch);margin-bottom:1px}
+.soh p{font-size:11px;color:var(--mid)}
+.sbadge{background:#F0F0F0;color:var(--soft);font-size:9px;font-weight:700;letter-spacing:.08em;padding:2px 7px;border-radius:100px;margin-top:3px;display:inline-block}
+.sclose{width:100%;padding:11px;border:none;background:transparent;color:var(--soft);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;margin-top:2px}
+.cbadge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:#FF5252;border-radius:50%;font-size:9px;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;border:2px solid white}
+.brow{display:flex;align-items:center;gap:8px;padding:10px 20px 6px;flex-shrink:0;cursor:pointer;border:none;background:transparent;font-family:'Inter',sans-serif;width:100%}
+.brow svg{width:22px;height:22px;stroke:var(--ch);stroke-width:1.8;fill:none}
+.brow span{font-size:16px;font-weight:700;color:var(--ch)}
+.cat-strip{display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;padding:10px 20px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
+.cat-strip::-webkit-scrollbar{display:none}
+.cat-btn{flex-shrink:0;padding:7px 16px;border-radius:100px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;white-space:nowrap;transition:background .18s,color .18s}
+.vid-list-wrap{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 20px 90px}
+.vid-list-wrap::-webkit-scrollbar{display:none}
+
+/* ── ANIMATED HEART ── */
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.35)}30%{transform:scale(1.1)}45%{transform:scale(1.28)}60%{transform:scale(1)}80%{transform:scale(1.08)}90%{transform:scale(1)}}
+@keyframes heartpop{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
+@keyframes floatPts{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-32px)}}
+.heart-anim{animation:heartbeat 1.4s ease-in-out infinite;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.heart-anim:active{animation:heartpop .3s ease-out}
+.float-pt{position:absolute;font-size:11px;font-weight:700;color:var(--gold);pointer-events:none;animation:floatPts 1.2s ease-out forwards;white-space:nowrap}
+
+/* ── HUB QUERY BOX ── */
+.hub-query{background:rgba(255,255,255,0.25);border-radius:20px;margin-top:12px;overflow:hidden;animation:su .3s ease-out}
+.hub-textarea{width:100%;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:13px;color:white;padding:14px;resize:none;min-height:80px;placeholder-color:rgba(255,255,255,0.6)}
+.hub-textarea::placeholder{color:rgba(255,255,255,0.6)}
+.hub-send{width:100%;padding:12px;background:white;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--ch);cursor:pointer}
+
+/* ── CONSULTATION BLOG ── */
+#sCONSULT{background:var(--white)}
+.consult-hero{position:relative;width:100%;height:220px;overflow:hidden;flex-shrink:0}
+.consult-hero img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.consult-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.25) 0%,rgba(0,0,0,0.70) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
+.face-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.18);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.3);border-radius:100px;padding:5px 12px;margin-bottom:10px}
+.face-tag span{font-size:11px;font-weight:700;color:white;letter-spacing:.08em}
+.consult-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:white;line-height:1.3}
+.consult-body{padding:20px 22px;overflow-y:auto;flex:1;padding-bottom:30px}
+.consult-body::-webkit-scrollbar{display:none}
+.obs-card{background:linear-gradient(135deg,rgba(200,162,150,0.12),rgba(201,168,76,0.08));border:1px solid rgba(200,162,150,0.25);border-radius:20px;padding:18px;margin-bottom:20px}
+.obs-label{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--rose);margin-bottom:10px;text-transform:uppercase}
+.obs-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.obs-row:last-child{margin-bottom:0}
+.obs-icon{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.obs-info h4{font-size:13px;font-weight:700;color:var(--ch);margin-bottom:1px}
+.obs-info p{font-size:11px;color:var(--mid)}
+.answer-section h2{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ch);margin-bottom:6px}
+.answer-section .qtag{font-size:11px;font-style:italic;color:var(--rose);margin-bottom:14px;display:block;font-family:'Playfair Display',serif}
+.answer-section p{font-size:13px;line-height:1.78;color:#374151;margin-bottom:12px}
+.answer-section h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ch);margin:14px 0 6px}
+.rec-strip{margin-top:20px;padding-top:20px;border-top:1px solid var(--bd)}
+.rec-label{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--soft);margin-bottom:12px;text-transform:uppercase}
+.rec-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.rec-scroll::-webkit-scrollbar{display:none}
+.rec-card{flex-shrink:0;width:140px;background:white;border-radius:18px;overflow:hidden;border:1px solid var(--bd);box-shadow:0 4px 16px -8px rgba(0,0,0,0.1);cursor:pointer}
+.rec-card img{width:100%;height:110px;object-fit:cover}
+.rec-card-info{padding:10px}
+.rec-card-info .brand{font-size:9px;font-weight:700;color:var(--rose);letter-spacing:.08em}
+.rec-card-info .name{font-size:12px;font-weight:700;color:var(--ch);line-height:1.3;margin:2px 0 4px}
+.rec-card-info .price{font-size:13px;font-weight:700;color:var(--ch)}
+.rec-card-cta{width:100%;padding:8px;background:var(--ch);border:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:white;cursor:pointer}
+
+/* ── POINTS SCREEN ── */
+#sPOINTS{background:var(--white)}
+.pts-hero{background:linear-gradient(135deg,#C8A296 0%,#C9A84C 100%);padding:36px 24px 28px;color:white}
+.pts-big{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;line-height:1}
+.pts-sub{font-size:14px;opacity:.85;margin-top:4px}
+.progress-outer{background:rgba(255,255,255,0.3);border-radius:100px;height:8px;margin:16px 0 8px}
+.progress-inner{height:100%;border-radius:100px;background:white;transition:width .6s ease}
+.pts-to-go{font-size:12px;opacity:.8}
+.pts-card{margin:16px 20px 0;background:white;border-radius:20px;padding:20px;border:1px solid var(--bd)}
+.pts-card h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--ch);margin-bottom:14px}
+.pts-row-item{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.pts-row-item:last-child{border-bottom:none}
+.pts-row-item .icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.pts-row-item .desc{flex:1}
+.pts-row-item .desc p{font-size:13px;font-weight:600;color:var(--ch)}
+.pts-row-item .desc span{font-size:11px;color:var(--mid)}
+.pts-row-item .earn{font-size:13px;font-weight:700;color:var(--gold)}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE DEVICE ENGINE
+   Mobile   < 640px  → full-bleed, fluid
+   Tablet   640–1023 → centered card, fluid  
+   Desktop ≥ 1024px  → phone chassis on backdrop
+══════════════════════════════════════════ */
+
+/* ── BASE (phone chassis — desktop default) ── */
+.canvas{width:100%;min-height:100vh}
+.app{
+  width:390px;height:700px;
+  margin:0 auto;
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  position:relative;overflow:hidden;
+  border-radius:44px;
+  box-shadow:0 40px 80px -20px rgba(0,0,0,0.22);
+}
+
+/* ── DESKTOP ≥ 1024px ── */
+@media(min-width:1024px){
+  .canvas{
+    display:flex;align-items:center;justify-content:center;
+    padding:48px 24px;
+    background:radial-gradient(ellipse 80% 65% at 50% 40%,#FDFBF7 0%,#F3F4F6 100%);
+  }
+  .app{box-shadow:0 60px 120px -30px rgba(0,0,0,0.28),0 20px 50px -15px rgba(0,0,0,0.12)}
+}
+
+/* ── TABLET 640–1023px ── */
+@media(min-width:640px) and (max-width:1023px){
+  .canvas{
+    display:flex;align-items:flex-start;justify-content:center;
+    padding:32px 24px 40px;
+    background:radial-gradient(ellipse 100% 70% at 50% 30%,#FDFBF7 0%,#F0EDFB 60%,#F3F4F6 100%);
+    min-height:100vh;
+  }
+  .app{
+    width:min(480px,100%);
+    height:auto;min-height:calc(100vh - 80px);
+    border-radius:32px;
+    box-shadow:0 24px 64px -16px rgba(0,0,0,0.18),0 8px 24px -8px rgba(0,0,0,0.1);
+    overflow:hidden;
+  }
+  .sc{
+    border-radius:32px;
+    height:auto;min-height:calc(100vh - 80px);
+  }
+  .ovl{border-radius:32px}
+  .bnav{bottom:10px;left:12px;right:12px}
+  .notch{display:none}
+  .scr-login-inner{min-height:calc(100vh - 80px)!important;padding:40px 32px!important}
+}
+
+/* ── MOBILE < 640px ── */
+@media(max-width:639px){
+  html,body{height:100%;overflow:hidden}
+  .canvas{width:100%;height:100vh;height:100dvh;background:var(--bg);overflow:hidden}
+  .app{
+    width:100%;
+    height:100vh;height:100dvh;
+    margin:0;border-radius:0;box-shadow:none;
+  }
+  .sc{border-radius:0;overflow:hidden}
+  .sc.on{display:flex}
+  .ovl{border-radius:0}
+  .bnav{
+    left:10px;right:10px;
+    bottom:max(10px,env(safe-area-inset-bottom));
+    height:60px;
+  }
+  .notch{display:none}
+  /* login screen fluid height fix */
+  .scr-login-inner{min-height:100vh!important;min-height:100dvh!important;padding:0 22px!important}
+  /* tighter category strip on narrow screens */
+  .cat-strip{padding:8px 14px 12px;gap:6px}
+  .cat-btn{padding:6px 13px;font-size:11px}
+  /* slightly tighter font on very small phones */
+  .nb-label{font-size:9px!important}
+}
+</style>
+
+<div class="canvas">
+<div class="app" id="app">
+<div class="toast" id="toast"></div>
+<input type="file" id="fup" accept="image/*" style="display:none" onchange="handleUp(event)"/>
+
+<!-- ════ LOGIN ════ -->
+<div class="sc on" id="sLOGIN" style="background:white">
+  <div class="scr scr-login-inner" style="padding:0 28px;display:flex;flex-direction:column;justify-content:center;min-height:700px">
+    <div style="text-align:center;margin-bottom:36px">
+      <div style="width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,#C8A296,#C9A84C);margin:0 auto 18px;display:flex;align-items:center;justify-content:center">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 20v-1a8 8 0 0116 0v1"/></svg>
+      </div>
+      <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--ch)" id="authTitle">Welcome to AURA</div>
+      <div style="font-size:13px;color:var(--mid);margin-top:6px" id="authSub">Sign in to continue your beauty journey</div>
+    </div>
+    <div id="authNameField" style="display:none;margin-bottom:12px">
+      <label style="font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.06em;display:block;margin-bottom:6px">FULL NAME</label>
+      <input id="authName" type="text" placeholder="Clara Fontaine" style="width:100%;padding:13px 16px;border-radius:14px;border:1.5px solid var(--bd);font-family:Inter,sans-serif;font-size:14px;color:var(--ch);outline:none"/>
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.06em;display:block;margin-bottom:6px">EMAIL</label>
+      <input id="authEmail" type="email" placeholder="clara@aurabeauty.com" style="width:100%;padding:13px 16px;border-radius:14px;border:1.5px solid var(--bd);font-family:Inter,sans-serif;font-size:14px;color:var(--ch);outline:none"/>
+    </div>
+    <div style="margin-bottom:6px">
+      <label style="font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.06em;display:block;margin-bottom:6px">PASSWORD</label>
+      <input id="authPass" type="password" placeholder="••••••••" style="width:100%;padding:13px 16px;border-radius:14px;border:1.5px solid var(--bd);font-family:Inter,sans-serif;font-size:14px;color:var(--ch);outline:none"/>
+    </div>
+    <div id="authError" style="font-size:12px;color:#EF4444;font-weight:600;min-height:18px;margin:6px 2px 0"></div>
+    <button onclick="submitAuth()" id="authSubmitBtn" style="width:100%;margin-top:14px;padding:15px;background:var(--ch);border:none;border-radius:100px;font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:white;cursor:pointer">Sign In</button>
+    <div style="text-align:center;margin-top:18px;font-size:13px;color:var(--mid)">
+      <span id="authToggleLabel">Don't have an account?</span>
+      <span onclick="toggleAuthMode()" style="color:var(--rose);font-weight:700;cursor:pointer;text-decoration:underline" id="authToggleAction">Sign up</span>
+    </div>
+    <div style="text-align:center;margin-top:10px;font-size:11px;color:var(--soft)">Demo mode — any email & password works ✨</div>
+  </div>
+</div>
+
+<!-- ════ HOME ════ -->
+<div class="sc" id="sHOME" style="background:white">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div>
+      <div class="sbr">
+        <svg width="15" height="11" viewBox="0 0 15 11"><rect x="0" y="3" width="3" height="8" rx="1" fill="#1A1A1A"/><rect x="4" y="2" width="3" height="9" rx="1" fill="#1A1A1A"/><rect x="8" y="0" width="3" height="11" rx="1" fill="#1A1A1A"/></svg>
+        <svg width="24" height="12" viewBox="0 0 24 12"><rect x="0" y="1.5" width="21" height="9" rx="2.5" stroke="#1A1A1A" stroke-width="1.2" fill="none"/><rect x="1.5" y="3" width="15" height="6" rx="1.5" fill="#1A1A1A"/></svg>
+      </div>
+    </div>
+  </div>
+  <div class="scr">
+    <!-- Header with animated heart -->
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 22px 10px">
+      <div style="display:flex;align-items:center;gap:10px;position:relative">
+        <!-- Animated pulsing heart -->
+        <div class="heart-anim" id="heartBtn" onclick="heartClick()" style="width:38px;height:38px;background:linear-gradient(135deg,#FF8C6B,#FF5252);border-radius:50%;position:relative">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="white"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--ch)" id="homePts">2648 pts</div>
+          <div style="font-size:10px;color:var(--soft);cursor:pointer;text-decoration:underline" onclick="go('sPOINTS')">How points work →</div>
+        </div>
+      </div>
+      <div onclick="go('sPROFILE')" style="cursor:pointer;width:44px;height:44px;border-radius:50%;overflow:hidden;border:2.5px solid rgba(200,162,150,0.4)">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=88&h=88&fit=crop&crop=face" style="width:100%;height:100%;object-fit:cover"/>
+      </div>
+    </div>
+
+    <div style="padding:0 22px 16px">
+      <div style="font-size:14px;color:var(--mid);margin-bottom:4px">Let's take care of your skin!</div>
+      <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--ch);line-height:1.1">Hello <span id="homeUserName">Clara,</span></div>
+    </div>
+
+    <div onclick="go('sROUTINE')" style="margin:0 22px 18px;background:white;border-radius:20px;border:1px solid var(--bd);box-shadow:0 4px 20px -8px rgba(0,0,0,0.07);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer">
+      <div style="width:34px;height:34px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+      <span style="font-size:15px;font-weight:600;color:var(--ch);flex:1" id="rtLabel">Set up Daily Routine</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+
+    <div onclick="go('sCHAT')" style="margin:0 22px 18px;background:linear-gradient(135deg,#FAF0EB,#F0EDFB);border-radius:20px;border:1px solid var(--bd);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer">
+      <div style="width:34px;height:34px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">💬</div>
+      <div style="flex:1">
+        <div style="font-size:15px;font-weight:600;color:var(--ch)">Chat with AURA Beautician</div>
+        <div style="font-size:11px;color:var(--mid);margin-top:1px">Free first response · then 100 pts per reply</div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+
+    <div style="padding:0 22px 16px;display:flex;gap:10px">
+      <button onclick="go('sPRODUCTS')" style="flex:1;padding:11px 0;background:var(--ch);border:none;border-radius:16px;color:white;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer">🛍 Shop</button>
+      <button onclick="go('sSAVES')" style="flex:1;padding:11px 0;background:var(--bg);border:1px solid var(--bd);border-radius:16px;color:var(--ch);font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer">Saves</button>
+      <button onclick="openScanModal()" style="flex:1;padding:11px 0;background:linear-gradient(135deg,#C8A296,#C9A84C);border:none;border-radius:16px;color:white;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer">Scan</button>
+    </div>
+
+    <div style="padding:0 22px 12px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:18px;font-weight:700;color:var(--ch)">For you</span>
+      <button onclick="go('sVIDEOS')" style="font-size:13px;color:var(--mid);border:none;background:transparent;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:2px">View more <svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="vertical-align:-2px"><path d="M5 3l4 4-4 4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div id="homeVids"></div>
+    <div style="height:12px"></div>
+  </div>
+
+  <div class="bnav">
+    <button class="nb on" onclick="go('sHOME')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>HOME</span></button>
+    <button class="nb" onclick="go('sVIDEOS')"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><span>VIDEOS</span></button>
+    <div class="camb" onclick="openScanModal()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+    <button class="nb" onclick="go('sPRODUCTS')" style="position:relative"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span>SHOP</span><div class="cbadge" id="cartBadge" style="display:none">0</div></button>
+    <button class="nb" onclick="go('sSAVES')"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><span>SAVES</span></button>
+  </div>
+
+  <div class="ovl" id="scanModal">
+    <div class="sheet">
+      <div class="hdl"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--ch);text-align:center;margin-bottom:4px">Analyse your skin</div>
+      <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:18px">Choose how you'd like to get started</div>
+      <button class="sopt" onclick="toast('Live selfie coming soon! 🤳')">
+        <div class="soi"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+        <div class="soh"><h4>Take a live selfie</h4><p>Use your front camera for instant analysis</p><span class="sbadge">COMING SOON</span></div>
+      </button>
+      <button class="sopt" onclick="trigUp()">
+        <div class="soi"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+        <div class="soh"><h4>Upload from device</h4><p>Choose a photo from your camera roll</p></div>
+      </button>
+      <button class="sopt" onclick="useSample()" style="border-color:rgba(200,162,150,0.45);background:rgba(200,162,150,0.05)">
+        <div class="soi" style="background:linear-gradient(135deg,rgba(200,162,150,0.25),rgba(201,168,76,0.15))"><svg viewBox="0 0 24 24" style="stroke:var(--rose)"><circle cx="12" cy="8" r="4"/><path d="M6 20v-1a6 6 0 0112 0v1"/></svg></div>
+        <div class="soh"><h4 style="color:var(--rose)">Use a sample face</h4><p>Browse 10 pre-analysed face profiles</p></div>
+      </button>
+      <button class="sclose" onclick="closeScanModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ VIDEO LIST ════ -->
+<div class="sc" id="sVIDEOS">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div>
+      <div class="sbr"><svg width="24" height="12" viewBox="0 0 24 12"><rect x="0" y="1.5" width="21" height="9" rx="2.5" stroke="#1A1A1A" stroke-width="1.2" fill="none"/><rect x="1.5" y="3" width="15" height="6" rx="1.5" fill="#1A1A1A"/></svg></div>
+    </div>
+    <div style="padding:10px 22px 4px;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ch)">Beauty Library</div>
+    <div class="cat-strip" id="vcatRow"></div>
+  </div>
+  <div class="vid-list-wrap" id="videoList"></div>
+  <div class="bnav">
+    <button class="nb" onclick="go('sHOME')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>HOME</span></button>
+    <button class="nb on"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><span>VIDEOS</span></button>
+    <div class="camb" onclick="openScanModal()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+    <button class="nb" onclick="go('sPRODUCTS')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span>SHOP</span></button>
+    <button class="nb" onclick="go('sSAVES')"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><span>SAVES</span></button>
+  </div>
+</div>
+
+<!-- ════ VIDEO PLAYER ════ -->
+<div class="sc" id="sVIDEOPLAY" style="background:var(--white)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sVIDEOS')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span id="vpTitle">Video</span></button>
+  </div>
+  <div class="scr" style="padding-bottom:30px" id="vpBody"></div>
+</div>
+
+<!-- ════ SCAN / ANALYSIS HUB ════ -->
+<div class="sc" id="sSCAN" style="background:#111">
+  <div style="position:relative;flex:1;overflow:hidden">
+    <img id="mainFace" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=390&h=580&fit=crop&crop=face,top" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center"/>
+    <!-- gallery strip -->
+    <div style="position:absolute;top:0;left:0;right:0;z-index:20;padding:66px 0 0">
+      <div style="display:flex;gap:8px;padding:0 14px;overflow-x:auto;-webkit-overflow-scrolling:touch" id="gscroll"></div>
+    </div>
+    <!-- scan overlay -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:15" viewBox="0 0 390 480" preserveAspectRatio="xMidYMid slice">
+      <line x1="55" y1="165" x2="335" y2="165" stroke="rgba(255,255,255,0.22)" stroke-width=".8" stroke-dasharray="4 7"/>
+      <line x1="55" y1="210" x2="335" y2="210" stroke="rgba(255,255,255,0.18)" stroke-width=".8" stroke-dasharray="4 7"/>
+      <line x1="60" y1="260" x2="330" y2="260" stroke="rgba(255,255,255,0.18)" stroke-width=".8" stroke-dasharray="4 7"/>
+      <line x1="195" y1="100" x2="195" y2="420" stroke="rgba(255,255,255,0.10)" stroke-width=".8" stroke-dasharray="3 9"/>
+      <ellipse cx="195" cy="265" rx="122" ry="155" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1" stroke-dasharray="5 8"/>
+    </svg>
+    <style>
+      @keyframes dp{0%,100%{opacity:1;transform:translate(-50%,-50%) scale(1)}50%{opacity:.5;transform:translate(-50%,-50%) scale(.75)}}
+      @keyframes re{0%{transform:scale(.5);opacity:.8}100%{transform:scale(2.8);opacity:0}}
+      .sdot{position:absolute;width:10px;height:10px;border-radius:50%;background:white;transform:translate(-50%,-50%);animation:dp 2s ease-in-out infinite;z-index:16}
+      .sdot::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(255,255,255,.5);animation:re 2s ease-out infinite}
+    </style>
+    <div class="sdot" style="left:50%;top:58%"></div>
+    <div class="sdot" style="left:28%;top:49%;animation-delay:.7s"></div>
+    <div class="sdot" style="left:71%;top:53%;animation-delay:1.4s"></div>
+    <!-- top bar -->
+    <div style="position:absolute;top:0;left:0;right:0;z-index:50;padding:52px 16px 0;display:flex;align-items:center;justify-content:space-between">
+      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:24px;background:rgba(0,0,0,.4);border-radius:0 0 16px 16px"></div>
+      <button onclick="go('sHOME')" style="width:36px;height:36px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <span style="color:white;font-size:15px;font-weight:600">Scan your face</span>
+      <button onclick="go('sHOME')" style="width:36px;height:36px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+
+    <!-- ══ UPGRADED PERSONALISATION HUB DRAWER ══ -->
+    <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(180,138,126,0.95);backdrop-filter:blur(28px);border-radius:32px 32px 0 0;padding:16px 16px 24px;z-index:30">
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:white;text-align:center;margin-bottom:14px">Your Personalisation HUB</div>
+
+      <!-- 3 category tabs -->
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <button id="tabSkin" onclick="setTab('skin')" style="flex:1;padding:10px 4px;border-radius:14px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;background:white;color:var(--ch);transition:all .2s">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Skincare
+        </button>
+        <button id="tabMakeup" onclick="setTab('makeup')" style="flex:1;padding:10px 4px;border-radius:14px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(255,255,255,.2);color:rgba(255,255,255,.85);transition:all .2s">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M8 16s1-2 4-2 4 2 4 2"/><path d="M6 20h12"/></svg>Makeup
+        </button>
+        <button id="tabShape" onclick="setTab('shape')" style="flex:1;padding:10px 4px;border-radius:14px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(255,255,255,.2);color:rgba(255,255,255,.85);transition:all .2s">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Face Shape
+        </button>
+      </div>
+
+      <!-- ★ NEW: Question / concern input box ★ -->
+      <div style="background:rgba(255,255,255,0.18);border-radius:18px;overflow:hidden;margin-bottom:12px">
+        <div style="padding:10px 14px 4px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.75);letter-spacing:.10em;text-transform:uppercase" id="hubPromptLabel">Describe your skincare concern</div>
+        <textarea id="hubQuery" placeholder="e.g. My skin feels dry and I get breakouts on my T-zone. What should I use?" style="width:100%;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:13px;color:white;padding:4px 14px 12px;resize:none;min-height:72px;line-height:1.6" oninput="autoResize(this)"></textarea>
+        <div style="border-top:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:space-between;padding:8px 14px">
+          <span style="font-size:11px;color:rgba(255,255,255,0.55);font-style:italic">Your question stays private</span>
+          <button onclick="submitConsult()" style="background:white;border:none;border-radius:100px;padding:7px 18px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;color:var(--ch);cursor:pointer;display:flex;align-items:center;gap:6px">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Get Advice
+          </button>
+        </div>
+      </div>
+
+      <button onclick="go('sPRODUCTS')" style="width:100%;padding:12px;background:white;border:none;border-radius:100px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--ch);cursor:pointer">View All Custom Products</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ CONSULTATION BLOG RESPONSE ════ -->
+<div class="sc" id="sCONSULT">
+  <div style="flex-shrink:0;position:relative">
+    <div class="consult-hero">
+      <img id="consultFaceImg" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=390&h=440&fit=crop&crop=face,top"/>
+      <div class="consult-hero-overlay">
+        <div class="face-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M1.05 12H3m18 0h1.95M12 1.05V3m0 18v1.95"/></svg>
+          <span id="consultCatTag">SKINCARE ANALYSIS</span>
+        </div>
+        <div class="consult-title" id="consultBlogTitle">Your personalised skin report</div>
+      </div>
+    </div>
+    <button class="brow" onclick="go('sSCAN')" style="position:absolute;top:52px;left:10px;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);border-radius:100px;padding:6px 14px;width:auto;gap:6px">
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:white;fill:none;stroke-width:2"><polyline points="15 18 9 12 15 6"/></svg>
+      <span style="color:white;font-size:13px;font-weight:600">Back</span>
+    </button>
+  </div>
+
+  <div class="consult-body scr">
+    <!-- Face observations card -->
+    <div class="obs-card">
+      <div class="obs-label">What we noticed about your face</div>
+      <div id="obsRows"></div>
+    </div>
+
+    <!-- AI answer section -->
+    <div class="answer-section">
+      <div class="qtag" id="consultQTag">"My question..."</div>
+      <h2 id="consultAnswerTitle">Our expert response</h2>
+      <div id="consultAnswerBody"></div>
+    </div>
+
+    <!-- Recommended products -->
+    <div class="rec-strip">
+      <div class="rec-label">Recommended for you</div>
+      <div class="rec-scroll" id="recProducts"></div>
+    </div>
+
+    <button onclick="go('sPRODUCTS')" style="width:100%;margin-top:20px;padding:14px;background:var(--ch);border:none;border-radius:100px;font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:white;cursor:pointer;letter-spacing:.02em">View All Recommended Products</button>
+    <button onclick="openChatFromConsult()" style="width:100%;margin-top:10px;padding:14px;background:white;border:1.5px solid var(--rose);border-radius:100px;font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--rose);cursor:pointer;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:8px">💬 Chat with AURA Beautician</button>
+    <div style="height:20px"></div>
+  </div>
+</div>
+
+<!-- ════ AURA BEAUTICIAN CHAT ════ -->
+<div class="sc" id="sCHAT" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0;border-bottom:1px solid var(--bd)">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 18px 12px">
+      <button onclick="go('sHOME')" style="border:none;background:transparent;cursor:pointer;padding:4px;display:flex"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.8"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#C8A296,#C9A84C);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">💆🏽‍♀️</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:700;color:var(--ch)">AURA Beautician</div>
+        <div style="font-size:10px;color:#22C55E;font-weight:600">● Online now</div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--gold);background:#FFF8E6;padding:5px 10px;border-radius:100px" id="chatPtsBadge">2648 pts</div>
+    </div>
+  </div>
+  <div class="scr" style="padding:16px 16px 14px" id="chatBody"></div>
+  <div style="background:white;border-top:1px solid var(--bd);padding:10px 14px 22px;flex-shrink:0" id="chatInputBar">
+    <div style="display:flex;align-items:flex-end;gap:8px">
+      <textarea id="chatInput" placeholder="Ask your beautician anything..." style="flex:1;background:var(--bg);border:1.5px solid var(--bd);border-radius:18px;padding:11px 14px;font-family:Inter,sans-serif;font-size:13px;color:var(--ch);outline:none;resize:none;min-height:42px;max-height:90px" oninput="autoResize(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg();}"></textarea>
+      <button onclick="sendChatMsg()" style="width:42px;height:42px;border-radius:50%;background:var(--ch);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+  <div class="ovl" id="buyPtsModal" style="border-radius:0">
+    <div class="sheet">
+      <div class="hdl"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--ch);text-align:center;margin-bottom:4px">Buy AURA Points</div>
+      <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:18px">You're out of points — top up to keep chatting with your beautician</div>
+      <button class="sopt" onclick="buyPoints(500,4.99)"><div class="soi" style="background:#FFF8E6"><span style="font-size:18px">💰</span></div><div class="soh"><h4>500 points</h4><p>$4.99 · enough for 5 replies</p></div></button>
+      <button class="sopt" onclick="buyPoints(1200,9.99)" style="border-color:rgba(201,168,76,0.45);background:rgba(201,168,76,0.05)"><div class="soi" style="background:#FFF0EB"><span style="font-size:18px">✨</span></div><div class="soh"><h4>1,200 points</h4><p>$9.99 · enough for 12 replies · best value</p></div></button>
+      <button class="sopt" onclick="buyPoints(2500,17.99)"><div class="soi" style="background:#F0EDFB"><span style="font-size:18px">💎</span></div><div class="soh"><h4>2,500 points</h4><p>$17.99 · enough for 25 replies</p></div></button>
+      <button class="sclose" onclick="document.getElementById('buyPtsModal').classList.remove('show')">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PRODUCTS ════ -->
+<div class="sc" id="sPRODUCTS" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <div style="padding:10px 20px 0;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ch)">AURA Shop</div>
+      <button onclick="go('sCART')" style="background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--ch)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Cart <span id="cartCount" style="background:var(--ch);color:white;font-size:10px;font-weight:700;padding:1px 6px;border-radius:100px">0</span>
+      </button>
+    </div>
+    <div class="cat-strip" id="prodCatRow"></div>
+  </div>
+  <div class="scr" style="padding:14px 20px 100px" id="prodList"></div>
+  <div class="bnav">
+    <button class="nb" onclick="go('sHOME')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>HOME</span></button>
+    <button class="nb" onclick="go('sVIDEOS')"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><span>VIDEOS</span></button>
+    <div class="camb" onclick="openScanModal()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+    <button class="nb on"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span>SHOP</span></button>
+    <button class="nb" onclick="go('sSAVES')"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><span>SAVES</span></button>
+  </div>
+</div>
+
+<!-- ════ CART ════ -->
+<div class="sc" id="sCART" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sPRODUCTS')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span>Your Cart</span></button>
+  </div>
+  <div class="scr" style="padding:14px 20px 120px" id="cartBody"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;background:white;padding:16px 20px 28px;border-top:1px solid var(--bd)">
+    <div style="display:flex;justify-content:space-between;margin-bottom:14px">
+      <span style="font-size:15px;color:var(--mid);font-weight:500">Total</span>
+      <span style="font-size:18px;font-weight:700;color:var(--ch)" id="cartTotal">$0.00</span>
+    </div>
+    <button onclick="checkout()" style="width:100%;padding:15px;background:var(--ch);border:none;border-radius:100px;font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:white;cursor:pointer">Checkout</button>
+  </div>
+</div>
+
+<!-- ════ CHECKOUT — DELIVERY DETAILS ════ -->
+<div class="sc" id="sCHECKOUT" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sCART')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span>Delivery Details</span></button>
+  </div>
+  <div class="scr" style="padding:6px 20px 120px" id="checkoutBody"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;background:white;padding:16px 20px 28px;border-top:1px solid var(--bd)">
+    <button onclick="confirmDelivery()" style="width:100%;padding:15px;background:var(--ch);border:none;border-radius:100px;font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:white;cursor:pointer">Continue to Payment</button>
+  </div>
+</div>
+
+<!-- ════ CHECKOUT — PAYMENT & REVIEW ════ -->
+<div class="sc" id="sPAYREVIEW" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sCHECKOUT')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span>Review & Pay</span></button>
+  </div>
+  <div class="scr" style="padding:6px 20px 120px" id="payReviewBody"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;background:white;padding:16px 20px 28px;border-top:1px solid var(--bd)">
+    <button onclick="placeOrder()" style="width:100%;padding:15px;background:var(--ch);border:none;border-radius:100px;font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:white;cursor:pointer">Place Order</button>
+  </div>
+</div>
+
+<!-- ════ ORDERS LIST ════ -->
+<div class="sc" id="sORDERS" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sPROFILE')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span>My Orders</span></button>
+  </div>
+  <div class="scr" style="padding:14px 20px 40px" id="ordersBody"></div>
+</div>
+
+<!-- ════ ORDER DETAIL / TRACKING ════ -->
+<div class="sc" id="sORDERDETAIL" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sORDERS')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span>Order Details</span></button>
+  </div>
+  <div class="scr" style="padding:14px 20px 40px" id="orderDetailBody"></div>
+</div>
+
+<!-- ════ SAVES ════ -->
+<div class="sc" id="sSAVES" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <div style="padding:10px 22px 14px;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ch)">Saved Items</div>
+  </div>
+  <div class="scr" style="padding:14px 20px 100px" id="savesBody"></div>
+  <div class="bnav">
+    <button class="nb" onclick="go('sHOME')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>HOME</span></button>
+    <button class="nb" onclick="go('sVIDEOS')"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><span>VIDEOS</span></button>
+    <div class="camb" onclick="openScanModal()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+    <button class="nb" onclick="go('sPRODUCTS')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span>SHOP</span></button>
+    <button class="nb on"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><span>SAVES</span></button>
+  </div>
+</div>
+
+<!-- ════ ROUTINE ════ -->
+<div class="sc" id="sROUTINE" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sHOME')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span>Daily Routine</span></button>
+  </div>
+  <div class="scr" style="padding:16px 20px 100px" id="routineBody"></div>
+</div>
+
+<!-- ════ POINTS EXPLAINED ════ -->
+<div class="sc" id="sPOINTS">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sPROFILE')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span>AURA Points</span></button>
+  </div>
+  <div class="scr" style="padding-bottom:40px">
+    <!-- Hero -->
+    <div class="pts-hero">
+      <div style="font-size:13px;font-weight:600;opacity:.8;letter-spacing:.08em;margin-bottom:6px">CLARA'S BALANCE</div>
+      <div class="pts-big" id="ptsBig">2648</div>
+      <div class="pts-sub">Aura Reward Points</div>
+      <div class="progress-outer">
+        <div class="progress-inner" id="ptsBar" style="width:26.48%"></div>
+      </div>
+      <div class="pts-to-go"><b id="ptsToGo">7,352 pts</b> to go for your 20% discount ✨</div>
+    </div>
+
+    <!-- Discount milestone -->
+    <div style="margin:16px 20px 0;background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05));border:1.5px solid rgba(201,168,76,0.35);border-radius:20px;padding:18px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:36px">🏆</div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--ch);margin-bottom:2px">Reach 10,000 Points</div>
+          <div style="font-size:13px;color:var(--mid);line-height:1.5">Unlock a <b style="color:var(--gold)">20% discount</b> on any single purchase — products, wigs, or consultations. Automatically applied at checkout.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to earn -->
+    <div class="pts-card">
+      <h3>How to earn points</h3>
+      <div class="pts-row-item"><div class="pts-icon" style="background:#FFF0EB">🛍️</div><div class="desc"><p>Every Purchase</p><span>Earn 1 point per $1 spent</span></div><div class="earn">1 pt / $1</div></div>
+      <div class="pts-row-item"><div class="pts-icon" style="background:#EBF3FB">🔬</div><div class="desc"><p>Skin Consultation</p><span>Submit a scan & question</span></div><div class="earn">+50 pts</div></div>
+      <div class="pts-row-item"><div class="pts-icon" style="background:#F0EDFB">📱</div><div class="desc"><p>Daily App Check-in</p><span>Open the app each day</span></div><div class="earn">+10 pts</div></div>
+      <div class="pts-row-item"><div class="pts-icon" style="background:#FAF0EB">❤️</div><div class="desc"><p>Save a Product</p><span>Heart any item in the shop</span></div><div class="earn">+5 pts</div></div>
+      <div class="pts-row-item"><div class="pts-icon" style="background:#E4F4EE">✅</div><div class="desc"><p>Complete Daily Routine</p><span>Check off all your steps</span></div><div class="earn">+25 pts</div></div>
+      <div class="pts-row-item"><div class="pts-icon" style="background:#FFF8E6">🎉</div><div class="desc"><p>Refer a Friend</p><span>Friend makes first purchase</span></div><div class="earn">+200 pts</div></div>
+    </div>
+
+    <!-- Points history -->
+    <div class="pts-card" style="margin-top:14px">
+      <h3>Recent activity</h3>
+      <div id="ptsHistory"></div>
+    </div>
+    <div style="height:20px"></div>
+  </div>
+</div>
+
+<!-- ════ PROFILE ════ -->
+<div class="sc" id="sPROFILE" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sHOME')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span>My Profile</span></button>
+  </div>
+  <div class="scr" style="padding:0 0 100px">
+    <div style="height:140px;background:linear-gradient(135deg,#C8A296,#C9A84C);position:relative">
+      <div style="position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:80px;height:80px;border-radius:50%;overflow:hidden;border:4px solid white;box-shadow:0 4px 20px -4px rgba(0,0,0,0.2)"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=160&h=160&fit=crop&crop=face" style="width:100%;height:100%;object-fit:cover"/></div>
+    </div>
+    <div style="margin-top:48px;text-align:center;padding:0 20px 16px">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ch)" id="profName">Clara Fontaine</div>
+      <div style="font-size:13px;color:var(--mid);margin-top:3px;margin-bottom:14px" id="profEmail">clara@aurabeauty.com</div>
+      <div style="display:flex;justify-content:center;gap:0;background:var(--bg);border-radius:20px;overflow:hidden;border:1px solid var(--bd)">
+        <div onclick="go('sPOINTS')" style="flex:1;text-align:center;padding:14px 8px;cursor:pointer;border-right:1px solid var(--bd)"><div style="font-size:20px;font-weight:700;color:var(--ch)" id="profPts">2648</div><div style="font-size:10px;color:var(--mid);font-weight:600">POINTS</div><div style="font-size:9px;color:var(--rose);margin-top:2px">Tap to learn more →</div></div>
+        <div onclick="go('sSAVES')" style="flex:1;text-align:center;padding:14px 8px;cursor:pointer;border-right:1px solid var(--bd)"><div style="font-size:20px;font-weight:700;color:var(--ch)" id="savesCount">0</div><div style="font-size:10px;color:var(--mid);font-weight:600">SAVES</div></div>
+        <div onclick="go('sORDERS')" style="flex:1;text-align:center;padding:14px 8px;cursor:pointer"><div style="font-size:20px;font-weight:700;color:var(--ch)" id="ordersCount">0</div><div style="font-size:10px;color:var(--mid);font-weight:600">ORDERS</div><div style="font-size:9px;color:var(--rose);margin-top:2px">Tap to track →</div></div>
+      </div>
+    </div>
+    <div style="margin:0 20px 14px;background:white;border-radius:20px;padding:18px;border:1px solid var(--bd)">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--rose);margin-bottom:12px">SKIN PROFILE</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="skinProfileGrid"></div>
+    </div>
+    <div style="margin:0 20px;background:white;border-radius:20px;overflow:hidden;border:1px solid var(--bd)" id="profileMenu"></div>
+  </div>
+  <div class="bnav">
+    <button class="nb" onclick="go('sHOME')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>HOME</span></button>
+    <button class="nb" onclick="go('sVIDEOS')"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><span>VIDEOS</span></button>
+    <div class="camb" onclick="openScanModal()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+    <button class="nb" onclick="go('sPRODUCTS')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span>SHOP</span></button>
+    <button class="nb on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20v-1a8 8 0 0116 0v1"/></svg><span>PROFILE</span></button>
+  </div>
+</div>
+
+<!-- ════ SKIN HISTORY ════ -->
+<div class="sc" id="sSKINHISTORY" style="background:var(--bg)">
+  <div style="background:white;flex-shrink:0">
+    <div class="sb"><span>9:41</span><div class="notch"></div></div>
+    <button class="brow" onclick="go('sPROFILE')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span>Skin History</span></button>
+  </div>
+  <div class="scr" style="padding:14px 20px 40px" id="skinHistoryBody"></div>
+</div>
+
+<!-- ════ GENERIC SHEET (Profile settings) ════ -->
+<div class="ovl" id="genSheet" style="z-index:300">
+  <div class="sheet" id="genSheetInner" style="max-height:560px;overflow-y:auto"></div>
+</div>
+
+</div><!-- .app -->
+</div><!-- .canvas -->
+<script>
+/* ────────────────────────────────────────
+   DATA
+──────────────────────────────────────── */
+var VIDEOS=[
+  {id:1,cat:'Skincare',title:'5 Skincare Habits That Changed My Skin',dur:'4:32',thumb:'https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=700&h=360&fit=crop&crop=top',tags:['Skincare','Routine'],content:'<p>Building a consistent skincare routine is the single biggest investment you can make in your skin\'s long-term health.</p><h3>1. Double Cleanse Every Evening</h3><p>Oil cleanser first, then water-based foam. Two steps that change everything.</p><h3>2. Actives in the Correct Order</h3><p>Thinnest to thickest — always. Watery essences, serums, then creams.</p><h3>3. SPF is Non-Negotiable</h3><p>UV causes 80% of visible ageing. SPF 50+ every single morning.</p><h3>4. Hydrate From Within</h3><p>2L of water daily gives topical hyaluronic acid something to draw from.</p><h3>5. Retinol: Start Slow</h3><p>Begin at 0.1% twice weekly. Pair with ceramide moisturiser.</p>'},
+  {id:2,cat:'Makeup',title:'Foundation Matching for Every Skin Tone',dur:'6:14',thumb:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=700&h=360&fit=crop&crop=top',tags:['Makeup','Foundation'],content:'<p>Undertones matter more than depth. Understanding yours transforms your foundation game.</p><h3>Warm vs Cool Undertone</h3><p>Check your wrist veins — green means warm, blue-purple means cool.</p><h3>The Jawline Test</h3><p>Swatch along the jawline in natural light. Disappearing shade = your match.</p><h3>Seasonal Shifts</h3><p>Skin darkens up to 2 shades in summer. Keep two shades and mix.</p>'},
+  {id:3,cat:'Skincare',title:'Treating Hyperpigmentation: Complete Guide',dur:'5:48',thumb:'https://images.unsplash.com/photo-1607008829749-c0f284a49fc4?w=700&h=360&fit=crop&crop=top',tags:['Skincare','Pigmentation'],content:'<p>Dark spots and uneven tone respond brilliantly to targeted actives.</p><h3>Vitamin C</h3><p>10–20% L-ascorbic acid inhibits melanin synthesis. Apply before SPF.</p><h3>Niacinamide</h3><p>5% interrupts melanosome transfer. Gentle enough for sensitive skin.</p><h3>Timeline</h3><p>Visible results in 8–12 weeks with consistent daily use.</p>'},
+  {id:4,cat:'Hair',title:'Wigs for Every Face Shape',dur:'7:02',thumb:'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=700&h=360&fit=crop&crop=top',tags:['Hair','Wigs'],content:'<p>The right wig creates the illusion of an oval silhouette regardless of your natural bone structure.</p><h3>Oval Face</h3><p>Almost any style works — you are the most versatile shape.</p><h3>Round Face</h3><p>Add crown height and length below the chin. Avoid jaw-length blunt cuts.</p><h3>Square Face</h3><p>Soft layers and curls starting at cheekbone level soften angles beautifully.</p>'},
+  {id:5,cat:'Wellness',title:'The Gut-Skin Axis: Diet & Your Glow',dur:'8:20',thumb:'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=700&h=360&fit=crop&crop=top',tags:['Wellness','Nutrition'],content:'<p>Your gut microbiome directly influences skin inflammation, barrier function, and hydration.</p><h3>Foods That Harm</h3><p>High-GI foods spike insulin and drive sebum. Dairy contains skin-disrupting hormones.</p><h3>Foods That Heal</h3><p>Fermented foods, omega-3s, and colourful vegetables protect and calm the skin.</p>'},
+  {id:6,cat:'Makeup',title:'Contouring for Your Face Shape',dur:'5:30',thumb:'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=700&h=360&fit=crop&crop=top',tags:['Makeup','Contouring'],content:'<p>Dark recedes. Light advances. Master this and contouring becomes effortless.</p><h3>Round Face</h3><p>Contour temples, cheek hollows, and jaw sides. Vertical highlight to elongate.</p><h3>Square Face</h3><p>Blend contour at jaw corners and forehead edges. Highlight centre cheekbones.</p>'},
+];
+
+var PRODUCTS=[
+  {id:1,cat:'Skincare',name:'Niacinamide 10% + Zinc 1%',brand:'The Ordinary',price:6.90,img:'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=200&h=200&fit=crop',bg:'#EBF3FB',desc:'Controls sebum, minimises pores, improves tone.'},
+  {id:2,cat:'Skincare',name:'Hyaluronic Acid 2% + B5',brand:'The Ordinary',price:9.90,img:'https://images.unsplash.com/photo-1696256016872-1526c9d0e280?w=200&h=200&fit=crop',bg:'#F0EDFB',desc:'Multi-depth hydration serum for all skin types.'},
+  {id:3,cat:'Skincare',name:'Glycolic Acid 7% Toner',brand:'The Ordinary',price:11.90,img:'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=200&h=200&fit=crop',bg:'#FAF0EB',desc:'Resurfaces and brightens for a radiant glow.'},
+  {id:4,cat:'Skincare',name:'Retinol 0.5% in Squalane',brand:'The Ordinary',price:8.90,img:'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&h=200&fit=crop',bg:'#F5F0FF',desc:'Fine lines, texture, pigmentation target.'},
+  {id:5,cat:'Makeup',name:'Soft Matte Foundation',brand:'AURA',price:34.00,img:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&h=200&fit=crop',bg:'#FAF0EB',desc:'Buildable medium-to-full. 40 shades.'},
+  {id:6,cat:'Makeup',name:'Velvet Lip Colour',brand:'AURA',price:22.00,img:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=200&h=200&fit=crop',bg:'#FCEEF4',desc:'Long-lasting velvet finish. Hydrating formula.'},
+  {id:7,cat:'Makeup',name:'Precision Brow Pencil',brand:'AURA',price:18.00,img:'https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=200&h=200&fit=crop',bg:'#F0EDFB',desc:'Micro-tip for hair-stroke definition.'},
+  {id:8,cat:'Hair',name:'Premium Silk Straight Wig 18"',brand:'AURA Hair',price:148.00,img:'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&h=200&fit=crop&crop=top',bg:'#F5F0E6',desc:'100% Remy hair. For Oval / Round faces.'},
+  {id:9,cat:'Hair',name:'HD Lace Wavy Bob 14"',brand:'AURA Hair',price:112.00,img:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=200&fit=crop&crop=face,top',bg:'#EBF3FB',desc:'Flatters oval structure. Warm brunette.'},
+  {id:10,cat:'Wellness',name:'Collagen Peptide Complex',brand:'AURA Wellness',price:42.00,img:'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=200&h=200&fit=crop',bg:'#E4F4EE',desc:'10g marine collagen. Supports elasticity.'},
+];
+
+var SAMPLES=[
+  {img:'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=390&h=580&fit=crop&crop=face,top',shape:'Oval',skin:'Combination',tone:'#D4A574',tone_name:'Warm Beige NC30'},
+  {img:'https://images.unsplash.com/photo-1521146764736-56c929d59c83?w=390&h=580&fit=crop&crop=face,top',shape:'Round',skin:'Oily',tone:'#C8956C',tone_name:'Golden Tan NC35'},
+  {img:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=390&h=580&fit=crop&crop=face,top',shape:'Heart',skin:'Dry',tone:'#E8C9A0',tone_name:'Fair Ivory NC15'},
+  {img:'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=390&h=580&fit=crop&crop=face,top',shape:'Square',skin:'Normal',tone:'#B07848',tone_name:'Deep Mahogany NC45'},
+  {img:'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=390&h=580&fit=crop&crop=face,top',shape:'Oval',skin:'Sensitive',tone:'#F2D5B8',tone_name:'Light Peach NC10'},
+  {img:'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=390&h=580&fit=crop&crop=face,top',shape:'Diamond',skin:'Dry',tone:'#E0B898',tone_name:'Soft Sand NC20'},
+  {img:'https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?w=390&h=580&fit=crop&crop=face,top',shape:'Oblong',skin:'Oily',tone:'#C08060',tone_name:'Honey Bronze NC40'},
+  {img:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=390&h=580&fit=crop&crop=face,top',shape:'Round',skin:'Combo',tone:'#D4906A',tone_name:'Medium Tan NC38'},
+  {img:'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=390&h=580&fit=crop&crop=face,top',shape:'Heart',skin:'Normal',tone:'#DDB890',tone_name:'Nude Beige NC25'},
+  {img:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=390&h=580&fit=crop&crop=face,top',shape:'Oval',skin:'Acne-Prone',tone:'#C89070',tone_name:'Warm Caramel NC37'},
+];
+
+var ROUTINE_STEPS=[
+  {id:'cleanse',label:'Cleanse',icon:'🧴',time:'AM + PM',done:false},
+  {id:'tone',label:'Tone / Essence',icon:'💧',time:'AM + PM',done:false},
+  {id:'serum',label:'Serum',icon:'🔬',time:'AM + PM',done:false},
+  {id:'moisturise',label:'Moisturise',icon:'🫧',time:'AM + PM',done:false},
+  {id:'spf',label:'SPF 50+',icon:'☀️',time:'AM only',done:false},
+  {id:'retinol',label:'Retinol / Treatment',icon:'✨',time:'PM only',done:false},
+];
+
+var SKIN_PROFILE=[
+  {label:'Face Shape',value:'Oval'},{label:'Skin Type',value:'Combination'},
+  {label:'Undertone',value:'Warm'},{label:'Skin Tone',value:'NC30–NC35',hex:'#D4A574'},
+];
+
+var CONSULT_RESPONSES={
+  skin:{
+    title:'Your Personalised Skincare Plan',
+    catTag:'SKINCARE ANALYSIS',
+    obs:[
+      {icon:'💧',bg:'#EBF3FB',label:'Hydration Level',val:'Moderate dehydration detected in cheek zones'},
+      {icon:'✨',bg:'#F0EDFB',label:'Skin Texture',val:'Minor uneven texture across T-zone'},
+      {icon:'🌡️',bg:'#FAF0EB',label:'Skin Sensitivity',val:'Low reactivity — tolerates actives well'},
+      {icon:'⭕',bg:'#FFF0EB',label:'Pore Visibility',val:'Enlarged pores in nose and chin area'},
+    ],
+    answerTitle:'Our expert skincare recommendation',
+    answerBody:'<p>Based on your scan and the concern you described, your skin exhibits a classic combination pattern — oily in the T-zone with dryness appearing on the cheeks and around the eyes.</p><h3>Morning Protocol</h3><p>Begin with a gentle, low-pH gel cleanser to remove overnight sebum without stripping. Follow with a niacinamide 5% toner to balance oil production across the forehead and nose, then layer a lightweight hyaluronic acid serum before your SPF 50+. This sequence takes under 4 minutes and forms the backbone of healthy skin.</p><h3>Evening Protocol</h3><p>Double cleanse on nights when you have worn SPF or makeup. Apply a ceramide-rich moisturiser to the dry cheek zones first, then a 0.3% retinol serum to the rest of the face. Use retinol only 3 nights per week initially, increasing to 5 nights after 8 weeks as tolerance builds.</p><h3>Key Active Ingredients to Look For</h3><p>Niacinamide (pore-refining), Hyaluronic Acid (multi-depth hydration), Ceramides (barrier repair), Retinol (cellular turnover), and Zinc PCA (sebum regulation). Avoid fragrance, alcohol denat., and high concentrations of AHA if you notice any redness.</p>',
+    prodIds:[1,2,3,4],
+  },
+  makeup:{
+    title:'Your Personalised Makeup Colour Match',
+    catTag:'MAKEUP ANALYSIS',
+    obs:[
+      {icon:'🎨',bg:'#FAF0EB',label:'Skin Undertone',val:'Warm — golden and peachy tones'},
+      {icon:'🌸',bg:'#FCEEF4',label:'Skin Depth',val:'Light-Medium (NC25–NC35 range)'},
+      {icon:'💡',bg:'#FFF8E6',label:'Best Foundation Finish',val:'Satin to natural — avoid heavy matte'},
+      {icon:'👄',bg:'#F0EDFB',label:'Lip Colour Harmony',val:'Nudes, mauves, warm berries'},
+    ],
+    answerTitle:'Colour-matching results for your complexion',
+    answerBody:'<p>Your warm skin tone with golden undertones means you glow best in earthy, peachy, and honey-toned products. Cool-toned shades like true red or bubblegum pink tend to create contrast that reads as unnatural against your complexion.</p><h3>Foundation & Concealer</h3><p>Look for shades described as Warm Beige, Honey, or Golden in the NC25–NC35 range. Fenty Beauty 230W, MAC NW30, and Charlotte Tilbury Natural Flawless Filter in shade 4 are excellent matches. Avoid anything with a strong pink or grey undertone.</p><h3>Blush & Bronzer</h3><p>Peach, terracotta, and warm coral blushes will enhance your natural flush. Try Charlotte Tilbury Pillow Talk blush or NARS Orgasm. For bronzer, stick with warm matte formulas — avoid anything ashy or too orange.</p><h3>Lip Colours</h3><p>Your signature shades: MAC Velvet Teddy (warm nude-brown), Charlotte Tilbury Pillow Talk (peachy-rose), NARS Heat Wave (warm terracotta), and Fenty Beauty Underdawg (nude-brown with golden sheen). For bold nights: deep plum or burgundy with warm undertones.</p><h3>Eye Shadows</h3><p>Warm copper, burnt sienna, champagne, and bronze shades bring out the gold flecks that warm skin tones often carry. Avoid icy silver or cool grey palettes.</p>',
+    prodIds:[5,6,7],
+  },
+  shape:{
+    title:'Face Shape & Styling Guide',
+    catTag:'FACE SHAPE ANALYSIS',
+    obs:[
+      {icon:'⬭',bg:'#EBF3FB',label:'Face Shape Detected',val:'Oval — balanced, symmetrical proportions'},
+      {icon:'📐',bg:'#F0EDFB',label:'Facial Geometry',val:'Forehead and jaw width balanced, defined cheekbones'},
+      {icon:'💇',bg:'#FAF0EB',label:'Wig Suitability',val:'Versatile — almost any length or style works'},
+      {icon:'💄',bg:'#FFF0EB',label:'Contouring Strategy',val:'Subtle — enhance rather than reshape'},
+    ],
+    answerTitle:'Styling recommendations for your oval face',
+    answerBody:'<p>Your oval face shape is the most versatile in cosmetology. Almost every hairstyle, wig length, and contouring technique flatters it, which means your focus shifts to personal preference and hair health rather than correction.</p><h3>Best Wig & Hairstyle Choices</h3><p>Textured lob (long bob) at collar length with soft layers — adds movement without overwhelming symmetry. Face-framing curtain bangs — accentuate the eyes and add softness at the temples. Sleek straight styles at any length — showcase your natural bone structure. Voluminous bouncy curls — celebrate symmetry with maximum impact.</p><h3>Contouring for Oval Face</h3><p>You require minimal contouring. A light bronzer sweep along the temples and a cream blush on the apples of the cheeks is sufficient. If desired, a subtle highlight down the nose bridge and on the cupid\'s bow creates dimension without altering the shape. Avoid heavy jawline contouring — it disrupts your natural balance.</p><h3>Accessories & Glasses</h3><p>Oval faces suit nearly every eyewear frame. Avoid anything wider than your face at its broadest point. Bold statement earrings, structured headbands, and geometric hair accessories all complement your proportions exceptionally well.</p>',
+    prodIds:[8,9,5,6],
+  },
+};
+
+var SKIN_HISTORY=[
+  {date:'Today',type:'Skincare Analysis',icon:'🔬',bg:'#EBF3FB',summary:'Combination skin — T-zone oil, cheek dehydration. Niacinamide + ceramide routine recommended.'},
+  {date:'3 weeks ago',type:'Makeup Colour Match',icon:'🎨',bg:'#FAF0EB',summary:'Warm undertone, Light-Medium depth. Honey & golden shades matched.'},
+  {date:'2 months ago',type:'Face Shape Analysis',icon:'⬭',bg:'#F0EDFB',summary:'Oval face shape detected. Versatile styling — most wig lengths recommended.'},
+  {date:'4 months ago',type:'Skincare Analysis',icon:'🔬',bg:'#EBF3FB',summary:'Mild hyperpigmentation noted on cheeks. Vitamin C + SPF protocol started.'},
+];
+function renderSkinHistory(){
+  var body=document.getElementById('skinHistoryBody');
+  if(!body)return;
+  body.innerHTML='<div style="font-size:13px;color:var(--mid);margin-bottom:16px;line-height:1.5">A timeline of every scan and consultation you have completed with AURA.</div>'
+    +SKIN_HISTORY.map(function(h){
+      return '<div style="background:white;border-radius:20px;padding:16px;margin-bottom:12px;border:1px solid var(--bd);display:flex;gap:14px;align-items:flex-start">'
+        +'<div style="width:42px;height:42px;border-radius:14px;background:'+h.bg+';display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">'+h.icon+'</div>'
+        +'<div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:14px;font-weight:700;color:var(--ch)">'+h.type+'</span><span style="font-size:11px;color:var(--soft)">'+h.date+'</span></div>'
+        +'<div style="font-size:12px;color:var(--mid);line-height:1.5">'+h.summary+'</div></div></div>';
+    }).join('');
+}
+/* ────────────────────────────────────────
+   STATE
+──────────────────────────────────────── */
+var cart=[],saves=[],routineSetup=false,routineChecked={},activeProdCat='All',activeVidCat='All',activeSample=0,ordersCount=0,curTab='skin',userPts=2648;
+var isLoggedIn=false,authMode='login',userName='Clara Fontaine',userEmail='clara@aurabeauty.com';
+var notifSettings={promos:true,orders:true,tips:false,consult:true};
+var paymentMethods=[{id:1,brand:'Visa',last4:'4242',exp:'09/27',isDefault:true}];
+var deliveryDetails={name:'',phone:'',address:'',city:'',state:'',note:''};
+var chatMessages=[],chatFreeUsed=false,CHAT_COST=100;
+var orders=[],activeOrderId=null;
+var ORDER_STAGES=['Order Placed','Preparing','Shipped','Out for Delivery','Delivered'];
+var CANCEL_WINDOW_MS=5*60*60*1000; // 5 hours
+var currentFaceImg='https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=390&h=580&fit=crop&crop=face,top';
+var ptsHistory=[
+  {icon:'🛍️',label:'Purchase: Niacinamide Serum',pts:'+7',date:'Today'},
+  {icon:'🔬',label:'Skin consultation completed',pts:'+50',date:'Yesterday'},
+  {icon:'📱',label:'Daily app check-in',pts:'+10',date:'Yesterday'},
+  {icon:'❤️',label:'Saved 2 products',pts:'+10',date:'2 days ago'},
+  {icon:'✅',label:'Completed daily routine',pts:'+25',date:'3 days ago'},
+];
+
+/* ────────────────────────────────────────
+   NAVIGATION
+──────────────────────────────────────── */
+function go(id){
+  if(!isLoggedIn && id!=='sLOGIN') return;
+  document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('on')});
+  document.getElementById(id).classList.add('on');
+  document.getElementById('scanModal').classList.remove('show');
+  if(id==='sVIDEOS') renderVideos();
+  if(id==='sPRODUCTS') renderProducts();
+  if(id==='sCART') renderCart();
+  if(id==='sSAVES') renderSaves();
+  if(id==='sROUTINE') renderRoutine();
+  if(id==='sPROFILE') renderProfile();
+  if(id==='sPOINTS') renderPoints();
+  if(id==='sCHAT') renderChat();
+  if(id==='sSKINHISTORY') renderSkinHistory();
+  if(id==='sCHECKOUT') renderCheckoutForm();
+  if(id==='sPAYREVIEW') renderPayReview();
+  if(id==='sORDERS') renderOrdersList();
+  if(id==='sORDERDETAIL') renderOrderDetail(activeOrderId);
+}
+
+/* ────────────────────────────────────────
+   AUTH
+──────────────────────────────────────── */
+function toggleAuthMode(){
+  authMode=authMode==='login'?'signup':'login';
+  document.getElementById('authNameField').style.display=authMode==='signup'?'block':'none';
+  document.getElementById('authTitle').textContent=authMode==='signup'?'Create your account':'Welcome to AURA';
+  document.getElementById('authSub').textContent=authMode==='signup'?'Start your personalised beauty journey':'Sign in to continue your beauty journey';
+  document.getElementById('authSubmitBtn').textContent=authMode==='signup'?'Create Account':'Sign In';
+  document.getElementById('authToggleLabel').textContent=authMode==='signup'?'Already have an account?':"Don't have an account?";
+  document.getElementById('authToggleAction').textContent=authMode==='signup'?'Sign in':'Sign up';
+  document.getElementById('authError').textContent='';
+}
+function submitAuth(){
+  var email=document.getElementById('authEmail').value.trim();
+  var pass=document.getElementById('authPass').value.trim();
+  var err=document.getElementById('authError');
+  if(!email||!pass){err.textContent='Please fill in all fields to continue.';return;}
+  if(authMode==='signup'){
+    var name=document.getElementById('authName').value.trim();
+    if(!name){err.textContent='Please tell us your name.';return;}
+    userName=name;
+  }
+  userEmail=email;
+  err.textContent='';
+  isLoggedIn=true;
+  document.getElementById('sLOGIN').classList.remove('on');
+  go('sHOME');
+  var hn=document.getElementById('homeUserName');
+  if(hn) hn.textContent=userName.split(' ')[0]+',';
+  toast(authMode==='signup'?'🎉 Welcome to AURA, '+userName.split(' ')[0]+'!':'Welcome back, '+userName.split(' ')[0]+'!');
+}
+function logOut(){
+  isLoggedIn=false;
+  document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('on')});
+  document.getElementById('sLOGIN').classList.add('on');
+  authMode='login';
+  document.getElementById('authNameField').style.display='none';
+  document.getElementById('authTitle').textContent='Welcome to AURA';
+  document.getElementById('authSub').textContent='Sign in to continue your beauty journey';
+  document.getElementById('authSubmitBtn').textContent='Sign In';
+  document.getElementById('authToggleLabel').textContent="Don't have an account?";
+  document.getElementById('authToggleAction').textContent='Sign up';
+  document.getElementById('authEmail').value='';
+  document.getElementById('authPass').value='';
+  document.getElementById('authError').textContent='';
+  toast('You have been logged out');
+}
+function confirmLogOut(){
+  closeSheet();
+  if(confirm('Are you sure you want to log out?')) logOut();
+}
+
+/* ────────────────────────────────────────
+   TOAST
+──────────────────────────────────────── */
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show')},2600);
+}
+function imgFallback(el){
+  el.onerror=null;
+  el.src='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#F0EDFB"/><text x="50%" y="50%" font-family="Inter,sans-serif" font-size="13" fill="#9CA3AF" text-anchor="middle" dy=".3em">AURA</text></svg>');
+}
+
+/* ────────────────────────────────────────
+   ANIMATED HEART / POINTS
+──────────────────────────────────────── */
+function heartClick(){
+  addPoints(5,'❤️ Daily love bonus!');
+}
+function addPoints(n,msg){
+  userPts+=n;
+  var hb=document.getElementById('heartBtn');
+  // floating +pts label
+  var lbl=document.createElement('div');
+  lbl.className='float-pt';
+  lbl.textContent='+'+n+' pts';
+  lbl.style.cssText='left:44px;top:-4px;font-size:11px;font-weight:700;color:#C9A84C;position:absolute;pointer-events:none;animation:floatPts 1.2s ease-out forwards;white-space:nowrap';
+  hb.parentElement.style.position='relative';
+  hb.parentElement.appendChild(lbl);
+  setTimeout(function(){if(lbl.parentNode) lbl.parentNode.removeChild(lbl)},1300);
+  // update labels
+  var hpts=document.getElementById('homePts');
+  if(hpts) hpts.textContent=userPts.toLocaleString()+' pts';
+  var pp=document.getElementById('profPts');
+  if(pp) pp.textContent=userPts.toLocaleString();
+  updatePointsUI();
+  if(msg) toast(msg);
+}
+function updatePointsUI(){
+  var pb=document.getElementById('ptsBig');
+  if(pb) pb.textContent=userPts.toLocaleString();
+  var bar=document.getElementById('ptsBar');
+  if(bar) bar.style.width=Math.min(100,(userPts/10000)*100)+'%';
+  var tog=document.getElementById('ptsToGo');
+  if(tog){
+    var left=Math.max(0,10000-userPts);
+    tog.innerHTML='<b>'+left.toLocaleString()+' pts</b> to go for your 20% discount ✨';
+  }
+}
+
+/* ────────────────────────────────────────
+   SCAN MODAL
+──────────────────────────────────────── */
+function openScanModal(){document.getElementById('scanModal').classList.add('show')}
+function closeScanModal(){document.getElementById('scanModal').classList.remove('show')}
+function trigUp(){closeScanModal();document.getElementById('fup').click();}
+function handleUp(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    currentFaceImg=ev.target.result;
+    document.getElementById('mainFace').src=currentFaceImg;
+    go('sSCAN');
+    toast('📸 Photo uploaded — scan active');
+    addPoints(10,'📸 Scan uploaded! +10 pts');
+  };
+  r.readAsDataURL(f);e.target.value='';
+}
+function useSample(){
+  closeScanModal();buildGallery();pickSample(0);go('sSCAN');
+}
+
+/* ────────────────────────────────────────
+   GALLERY
+──────────────────────────────────────── */
+function buildGallery(){
+  var g=document.getElementById('gscroll');g.innerHTML='';
+  SAMPLES.forEach(function(s,i){
+    var d=document.createElement('div');
+    d.style.cssText='width:64px;height:80px;border-radius:14px;overflow:hidden;flex-shrink:0;cursor:pointer;border:2.5px solid '+(i===activeSample?'white':'transparent')+';transition:border-color .2s;position:relative';
+    d.innerHTML='<img src="'+s.img+'" onerror="imgFallback(this)" style="width:100%;height:100%;object-fit:cover;object-position:top center"/><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.75));padding:3px 4px 4px;font-size:7px;font-weight:700;color:white;text-align:center;text-transform:uppercase">'+s.shape+'</div>';
+    d.onclick=(function(idx){return function(){pickSample(idx)}})(i);
+    g.appendChild(d);
+  });
+}
+function pickSample(i){
+  activeSample=i;
+  currentFaceImg=SAMPLES[i].img;
+  document.getElementById('mainFace').src=currentFaceImg;
+  var thumbs=document.getElementById('gscroll').children;
+  for(var j=0;j<thumbs.length;j++) thumbs[j].style.borderColor=j===i?'white':'transparent';
+  toast(SAMPLES[i].shape+' · '+SAMPLES[i].skin+' skin detected');
+}
+
+/* ────────────────────────────────────────
+   TABS (hub drawer)
+──────────────────────────────────────── */
+var TAB_PROMPTS={
+  skin:'e.g. My skin feels dry and I break out on my T-zone. What routine do you recommend?',
+  makeup:'e.g. I need help finding my perfect foundation shade and lip colours for my skin tone.',
+  shape:'e.g. What wigs and hairstyles would flatter my face shape most?',
+};
+var TAB_LABELS={
+  skin:'Describe your skincare concern',
+  makeup:'Describe your makeup question',
+  shape:'Describe your face shape styling goal',
+};
+function setTab(t){
+  curTab=t;
+  ['Skin','Makeup','Shape'].forEach(function(x){
+    var el=document.getElementById('tab'+x);if(!el)return;
+    var isA=x.toLowerCase()===t;
+    el.style.background=isA?'white':'rgba(255,255,255,0.2)';
+    el.style.color=isA?'var(--ch)':'rgba(255,255,255,0.85)';
+  });
+  var lbl=document.getElementById('hubPromptLabel');
+  if(lbl) lbl.textContent=TAB_LABELS[t]||'Describe your concern';
+  var ta=document.getElementById('hubQuery');
+  if(ta){ta.placeholder=TAB_PROMPTS[t]||'';ta.value='';}
+}
+function autoResize(el){el.style.height='auto';el.style.height=(el.scrollHeight)+'px';}
+
+/* ────────────────────────────────────────
+   SUBMIT CONSULTATION → BLOG SCREEN
+──────────────────────────────────────── */
+function submitConsult(){
+  var q=document.getElementById('hubQuery').value.trim();
+  if(!q){toast('Please describe your concern first ✍️');return;}
+
+  var resp=CONSULT_RESPONSES[curTab];
+  var sample=SAMPLES[activeSample];
+
+  // Set hero image to scanned face
+  document.getElementById('consultFaceImg').src=currentFaceImg;
+  document.getElementById('consultCatTag').textContent=resp.catTag;
+  document.getElementById('consultBlogTitle').textContent=resp.title;
+  document.getElementById('consultQTag').textContent='"'+q+'"';
+  document.getElementById('consultAnswerTitle').textContent=resp.answerTitle;
+  document.getElementById('consultAnswerBody').innerHTML=resp.answerBody.replace(/<h3>/g,'<h3 style="font-family:Playfair Display,serif;font-size:16px;font-weight:600;color:var(--ch);margin:14px 0 6px">').replace(/<p>/g,'<p style="margin-bottom:12px">');
+
+  // Face observations
+  var obsEl=document.getElementById('obsRows');obsEl.innerHTML='';
+  // Add face-shape/tone from sample
+  var sampleObs=[{icon:'🔬',bg:'#EBF3FB',label:'Face Shape',val:sample?sample.shape+' — '+sample.skin+' skin':SKIN_PROFILE[0].value+' face shape'}];
+  var fullObs=sampleObs.concat(resp.obs);
+  fullObs.forEach(function(o){
+    var row=document.createElement('div');
+    row.className='obs-row';
+    row.innerHTML='<div class="obs-icon" style="background:'+o.bg+'">'+o.icon+'</div><div class="obs-info"><h4>'+o.label+'</h4><p>'+o.val+'</p></div>';
+    obsEl.appendChild(row);
+  });
+
+  // Recommended products strip
+  var recEl=document.getElementById('recProducts');recEl.innerHTML='';
+  resp.prodIds.forEach(function(pid){
+    var p=PRODUCTS.find(function(x){return x.id===pid});if(!p)return;
+    var card=document.createElement('div');
+    card.className='rec-card';
+    card.innerHTML='<img src="'+p.img+'" alt="'+p.name+'" onerror="imgFallback(this)" loading="lazy"/>'
+      +'<div class="rec-card-info"><div class="brand">'+p.brand.toUpperCase()+'</div><div class="name">'+p.name+'</div><div class="price">$'+p.price.toFixed(2)+'</div></div>'
+      +'<button class="rec-card-cta" onclick="addToCart('+p.id+')">+ Add to Cart</button>';
+    recEl.appendChild(card);
+  });
+
+  addPoints(50,'🔬 Consultation complete! +50 pts');
+  go('sCONSULT');
+}
+
+/* ────────────────────────────────────────
+   AURA BEAUTICIAN CHAT
+──────────────────────────────────────── */
+var BEAUTICIAN_REPLIES=[
+  "Thanks for sharing that — based on what you're describing, I'd recommend easing in a low-strength active and watching how your skin responds over 1–2 weeks before increasing frequency.",
+  "That's a really common concern! Try introducing a gentle exfoliating toner 2–3 times a week, and always follow with SPF the next morning since actives increase sun sensitivity.",
+  "Good question. Layering order matters here — thinnest, water-based products first, then serums, then your moisturiser to seal everything in.",
+  "I'd suggest patch-testing any new product on your inner arm for 48 hours first, especially since you mentioned some sensitivity.",
+  "Consistency beats intensity with skincare. A simple routine you actually stick to will outperform a complicated one you abandon after two weeks.",
+  "That sounds like it could be barrier-related. Cutting back on actives for a week and focusing on ceramides and ceramide-rich moisturisers usually helps it calm down.",
+  "Great instinct asking before trying that combo — retinol and vitamin C can be used together, just at different times of day (vitamin C AM, retinol PM) to avoid irritation.",
+];
+function openChatFromConsult(){go('sCHAT');}
+function renderChat(){
+  var badge=document.getElementById('chatPtsBadge');
+  if(badge)badge.textContent=userPts.toLocaleString()+' pts';
+  var body=document.getElementById('chatBody');
+  if(!body)return;
+  if(chatMessages.length===0){
+    chatMessages.push({from:'bot',text:"Hi "+userName.split(' ')[0]+"! I'm your AURA Beautician 💆🏽‍♀️ Your first response is completely free — what would you like help with today?",cost:0});
+  }
+  renderChatMessages();
+  updateChatInputState();
+}
+function renderChatMessages(){
+  var body=document.getElementById('chatBody');
+  body.innerHTML=chatMessages.map(function(m){
+    if(m.from==='user'){
+      return '<div style="display:flex;justify-content:flex-end;margin-bottom:12px"><div style="max-width:78%;background:var(--ch);color:white;padding:11px 15px;border-radius:18px 18px 4px 18px;font-size:13px;line-height:1.5">'+m.text+'</div></div>';
+    }
+    var costTag=m.cost>0?'<div style="font-size:10px;font-weight:700;color:var(--gold);margin-top:6px">− '+m.cost+' pts</div>':(m.cost===0&&m.free?'<div style="font-size:10px;font-weight:700;color:#22C55E;margin-top:6px">FREE RESPONSE</div>':'');
+    return '<div style="display:flex;gap:8px;margin-bottom:12px;align-items:flex-start">'
+      +'<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#C8A296,#C9A84C);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">💆🏽‍♀️</div>'
+      +'<div style="max-width:78%;background:white;border:1px solid var(--bd);color:var(--ch);padding:11px 15px;border-radius:18px 18px 18px 4px;font-size:13px;line-height:1.5">'+m.text+costTag+'</div></div>';
+  }).join('');
+  body.scrollTop=body.scrollHeight;
+}
+function sendChatMsg(){
+  var input=document.getElementById('chatInput');
+  var text=input.value.trim();
+  if(!text)return;
+  var costForThis=chatFreeUsed?CHAT_COST:0;
+  if(chatFreeUsed && userPts<CHAT_COST){
+    showBuyPointsPrompt();
+    return;
+  }
+  chatMessages.push({from:'user',text:text});
+  input.value='';autoResize(input);
+  renderChatMessages();
+  // simulate beautician typing then reply
+  setTimeout(function(){
+    var reply=BEAUTICIAN_REPLIES[Math.floor(Math.random()*BEAUTICIAN_REPLIES.length)];
+    if(!chatFreeUsed){
+      chatMessages.push({from:'bot',text:reply,cost:0,free:true});
+      chatFreeUsed=true;
+      toast('💬 That was your free response — replies are 100 pts from here');
+    } else {
+      userPts-=CHAT_COST;
+      updatePointsUI();
+      var hpts=document.getElementById('homePts');if(hpts)hpts.textContent=userPts.toLocaleString()+' pts';
+      var pp=document.getElementById('profPts');if(pp)pp.textContent=userPts.toLocaleString();
+      var badge=document.getElementById('chatPtsBadge');if(badge)badge.textContent=userPts.toLocaleString()+' pts';
+      chatMessages.push({from:'bot',text:reply,cost:CHAT_COST});
+    }
+    renderChatMessages();
+    updateChatInputState();
+  },900);
+}
+function updateChatInputState(){
+  var bar=document.getElementById('chatInputBar');
+  var input=document.getElementById('chatInput');
+  if(!bar||!input)return;
+  if(chatFreeUsed && userPts<CHAT_COST){
+    input.disabled=true;
+    input.placeholder="You're out of points — buy more to continue";
+    showBuyPointsPrompt();
+  } else {
+    input.disabled=false;
+    input.placeholder='Ask your beautician anything...';
+  }
+}
+function showBuyPointsPrompt(){
+  document.getElementById('buyPtsModal').classList.add('show');
+}
+function buyPoints(amount,price){
+  userPts+=amount;
+  updatePointsUI();
+  var hpts=document.getElementById('homePts');if(hpts)hpts.textContent=userPts.toLocaleString()+' pts';
+  var pp=document.getElementById('profPts');if(pp)pp.textContent=userPts.toLocaleString();
+  var badge=document.getElementById('chatPtsBadge');if(badge)badge.textContent=userPts.toLocaleString()+' pts';
+  document.getElementById('buyPtsModal').classList.remove('show');
+  toast('✨ +'+amount.toLocaleString()+' pts added for $'+price.toFixed(2));
+  var input=document.getElementById('chatInput');
+  if(input){input.disabled=false;input.placeholder='Ask your beautician anything...';}
+}
+
+/* ────────────────────────────────────────
+   VIDEOS
+──────────────────────────────────────── */
+var vidCats=['All','Skincare','Makeup','Hair','Wellness'];
+function renderVideos(){
+  var cr=document.getElementById('vcatRow');cr.innerHTML='';
+  vidCats.forEach(function(c){
+    var b=document.createElement('button');b.className='cat-btn';b.textContent=c;
+    b.style.background=c===activeVidCat?'var(--ch)':'#F0F0F0';
+    b.style.color=c===activeVidCat?'white':'var(--mid)';
+    b.onclick=function(){activeVidCat=c;renderVideos();};
+    cr.appendChild(b);
+  });
+  var vl=document.getElementById('videoList');
+  var filtered=activeVidCat==='All'?VIDEOS:VIDEOS.filter(function(v){return v.cat===activeVidCat});
+  vl.innerHTML='';
+  filtered.forEach(function(v){
+    var card=document.createElement('div');
+    card.style.cssText='background:white;border-radius:22px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 20px -8px rgba(0,0,0,0.08);cursor:pointer;border:1px solid var(--bd)';
+    card.innerHTML='<div style="position:relative"><img src="'+v.thumb+'" style="width:100%;height:170px;object-fit:cover;display:block" loading="lazy"/>'
+      +'<div style="position:absolute;top:12px;left:12px;background:rgba(26,26,26,.82);backdrop-filter:blur(8px);border-radius:100px;padding:4px 10px;font-size:11px;font-weight:600;color:white;display:flex;align-items:center;gap:5px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>'+v.dur+'</div>'
+      +'<div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#FF9B5E,#FF6B35);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center"><svg width="11" height="11" viewBox="0 0 16 16" fill="white"><path d="M4 3l9 5-9 5V3z"/></svg></div></div>'
+      +'<div style="padding:14px 16px"><div style="display:flex;gap:6px;margin-bottom:6px">'+v.tags.map(function(t){return'<span style="background:#F0F0F0;color:var(--mid);font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px">'+t+'</span>'}).join('')+'</div>'
+      +'<div style="font-family:Playfair Display,serif;font-size:17px;font-weight:600;color:var(--ch);line-height:1.35">'+v.title+'</div></div>';
+    card.onclick=function(){openVideo(v);};
+    vl.appendChild(card);
+  });
+}
+function openVideo(v){
+  document.getElementById('vpTitle').textContent=v.title;
+  var body=document.getElementById('vpBody');
+  body.innerHTML='<img src="'+v.thumb+'" style="width:100%;height:210px;object-fit:cover;display:block"/>'
+    +'<div style="padding:20px 22px 10px">'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">'+v.tags.map(function(t){return'<span style="background:#F0F0F0;color:var(--mid);font-size:10px;font-weight:700;padding:2px 9px;border-radius:100px">'+t+'</span>'}).join('')+'</div>'
+    +'<h2 style="font-family:Playfair Display,serif;font-size:22px;font-weight:700;color:var(--ch);line-height:1.3;margin-bottom:6px">'+v.title+'</h2>'
+    +'<div style="font-size:12px;color:var(--soft);margin-bottom:16px">By AURA Beauty · '+v.dur+' read</div>'
+    +'<div style="font-size:14px;line-height:1.80;color:#374151">'+v.content.replace(/<h3>/g,'<h3 style="font-family:Playfair Display,serif;font-size:18px;font-weight:600;color:var(--ch);margin:18px 0 8px">').replace(/<p>/g,'<p style="margin-bottom:14px">')+'</div>'
+    +'<button onclick="saves.push({type:\'video\',title:\''+v.title.replace(/'/g,"\\'")+'  \',img:\''+v.thumb+'\'});toast(\'Saved ❤️\');addPoints(5,\'Article saved! +5 pts\')" style="margin-top:16px;display:flex;align-items:center;gap:8px;border:1.5px solid var(--bd);border-radius:100px;padding:10px 20px;background:white;cursor:pointer;font-family:Inter,sans-serif;font-size:13px;font-weight:600;color:var(--ch)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>Save Article</button>'
+    +'</div>';
+  go('sVIDEOPLAY');
+}
+
+/* ────────────────────────────────────────
+   HOME VIDEO CARDS
+──────────────────────────────────────── */
+function renderHomeVids(){
+  var el=document.getElementById('homeVids');el.innerHTML='';
+  VIDEOS.slice(0,2).forEach(function(v){
+    var c=document.createElement('div');
+    c.style.cssText='margin:0 22px 14px;border-radius:24px;overflow:hidden;cursor:pointer;box-shadow:0 8px 32px -10px rgba(0,0,0,0.10);position:relative;border:1px solid var(--bd)';
+    c.innerHTML='<img src="'+v.thumb+'" style="width:100%;height:185px;object-fit:cover;display:block" loading="lazy"/>'
+      +'<div style="position:absolute;top:12px;left:12px;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border-radius:100px;padding:5px 10px;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--ch)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>'+v.dur+'</div>'
+      +'<button style="position:absolute;top:12px;right:12px;width:32px;height:32px;background:linear-gradient(135deg,#FF9B5E,#FF6B35);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="event.stopPropagation();openVideo(VIDEOS['+(VIDEOS.indexOf(v))+'])"><svg width="11" height="11" viewBox="0 0 16 16" fill="white"><path d="M4 3l9 5-9 5V3z"/></svg></button>'
+      +'<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(26,26,26,0.82);backdrop-filter:blur(8px);padding:10px 14px;font-size:14px;font-weight:600;color:white;line-height:1.3">'+v.title+'</div>';
+    c.onclick=function(){openVideo(v);};
+    el.appendChild(c);
+  });
+}
+
+/* ────────────────────────────────────────
+   PRODUCTS
+──────────────────────────────────────── */
+var prodCats=['All','Skincare','Makeup','Hair','Wellness'];
+function renderProducts(){
+  var cr=document.getElementById('prodCatRow');cr.innerHTML='';
+  prodCats.forEach(function(c){
+    var b=document.createElement('button');b.className='cat-btn';b.textContent=c;
+    b.style.background=c===activeProdCat?'var(--ch)':'#F0F0F0';
+    b.style.color=c===activeProdCat?'white':'var(--mid)';
+    b.onclick=function(){activeProdCat=c;renderProducts();};
+    cr.appendChild(b);
+  });
+  var pl=document.getElementById('prodList');
+  var filtered=activeProdCat==='All'?PRODUCTS:PRODUCTS.filter(function(p){return p.cat===activeProdCat});
+  pl.innerHTML='';
+  filtered.forEach(function(p){
+    var inCart=cart.find(function(c){return c.id===p.id});
+    var inSave=saves.find(function(s){return s.id===p.id});
+    var card=document.createElement('div');
+    card.style.cssText='background:white;border-radius:22px;margin-bottom:12px;padding:16px;display:flex;gap:14px;align-items:center;border:1px solid var(--bd);box-shadow:0 4px 16px -8px rgba(0,0,0,0.07)';
+    card.innerHTML='<div style="width:80px;height:80px;border-radius:16px;background:'+p.bg+';flex-shrink:0;overflow:hidden"><img src="'+p.img+'" onerror="imgFallback(this)" style="width:80px;height:80px;object-fit:cover;border-radius:14px" loading="lazy"/></div>'
+      +'<div style="flex:1;min-width:0"><div style="font-size:10px;font-weight:700;color:var(--rose);letter-spacing:.08em;margin-bottom:3px">'+p.brand.toUpperCase()+'</div>'
+      +'<div style="font-size:14px;font-weight:700;color:var(--ch);line-height:1.3;margin-bottom:3px">'+p.name+'</div>'
+      +'<div style="font-size:11px;color:var(--mid);margin-bottom:8px;line-height:1.4">'+p.desc+'</div>'
+      +'<div style="display:flex;align-items:center;gap:8px">'
+      +'<span style="font-size:16px;font-weight:700;color:var(--ch)">$'+p.price.toFixed(2)+'</span>'
+      +'<button onclick="addToCart('+p.id+')" style="padding:6px 14px;background:'+(inCart?'#E8F5E9':'var(--ch)')+';color:'+(inCart?'#2E7D32':'white')+';border:none;border-radius:100px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;cursor:pointer">'+(inCart?'✓ Added':'+ Cart')+'</button>'
+      +'<button onclick="saveProd('+p.id+')" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--bd);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="'+(inSave?'var(--rose)':'none')+'" stroke="var(--rose)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>'
+      +'</div></div>';
+    pl.appendChild(card);
+  });
+}
+function addToCart(id){
+  var p=PRODUCTS.find(function(x){return x.id===id});if(!p)return;
+  var ex=cart.find(function(c){return c.id===id});
+  if(ex){ex.qty++;}else{cart.push({id:p.id,name:p.name,price:p.price,img:p.img,qty:1});}
+  updateCartBadge();toast('🛍️ Added to cart!');
+  addPoints(Math.floor(p.price),'🛍️ Purchase points added!');
+  renderProducts();
+}
+function saveProd(id){
+  var p=PRODUCTS.find(function(x){return x.id===id});if(!p)return;
+  var ex=saves.findIndex(function(s){return s.id===id});
+  if(ex>=0){saves.splice(ex,1);toast('Removed from saves');}
+  else{saves.push({id:p.id,type:'product',title:p.name,img:p.img,price:p.price});toast('❤️ Saved!');addPoints(5,'Item saved! +5 pts');}
+  renderProducts();
+}
+function updateCartBadge(){
+  var total=cart.reduce(function(a,c){return a+c.qty},0);
+  var b=document.getElementById('cartBadge'),cc=document.getElementById('cartCount');
+  if(b){b.style.display=total?'flex':'none';b.textContent=total;}
+  if(cc)cc.textContent=total;
+}
+
+/* ────────────────────────────────────────
+   CART
+──────────────────────────────────────── */
+function renderCart(){
+  var body=document.getElementById('cartBody');
+  if(cart.length===0){
+    body.innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:48px;margin-bottom:16px">🛍️</div><div style="font-family:Playfair Display,serif;font-size:22px;font-weight:600;color:var(--ch);margin-bottom:8px">Your cart is empty</div><div style="font-size:14px;color:var(--mid);margin-bottom:24px">Discover products curated for your skin</div><button onclick="go(\'sPRODUCTS\')" style="padding:13px 28px;background:var(--ch);border:none;border-radius:100px;color:white;font-family:Inter,sans-serif;font-size:14px;font-weight:700;cursor:pointer">Browse Products</button></div>';
+    document.getElementById('cartTotal').textContent='$0.00';return;
+  }
+  var html='';
+  cart.forEach(function(c){
+    html+='<div style="background:white;border-radius:20px;padding:14px;margin-bottom:10px;display:flex;gap:12px;align-items:center;border:1px solid var(--bd)">'
+      +'<img src="'+c.img+'" onerror="imgFallback(this)" style="width:64px;height:64px;object-fit:cover;border-radius:14px;flex-shrink:0" loading="lazy"/>'
+      +'<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:var(--ch);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+c.name+'</div>'
+      +'<div style="font-size:15px;font-weight:700;color:var(--ch)">$'+c.price.toFixed(2)+'</div></div>'
+      +'<div style="display:flex;align-items:center;gap:8px">'
+      +'<button onclick="changeQty('+c.id+',-1)" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--bd);background:white;cursor:pointer;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">−</button>'
+      +'<span style="font-size:15px;font-weight:700;min-width:20px;text-align:center">'+c.qty+'</span>'
+      +'<button onclick="changeQty('+c.id+',1)" style="width:28px;height:28px;border-radius:50%;border:none;background:var(--ch);cursor:pointer;color:white;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">+</button>'
+      +'</div></div>';
+  });
+  body.innerHTML=html;
+  document.getElementById('cartTotal').textContent='$'+cart.reduce(function(a,c){return a+c.price*c.qty},0).toFixed(2);
+}
+function changeQty(id,d){
+  var i=cart.findIndex(function(c){return c.id===id});if(i<0)return;
+  cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);
+  updateCartBadge();renderCart();
+}
+function checkout(){
+  if(cart.length===0){toast('Your cart is empty');return;}
+  go('sCHECKOUT');
+}
+
+/* ────────────────────────────────────────
+   DELIVERY DETAILS
+──────────────────────────────────────── */
+function renderCheckoutForm(){
+  var body=document.getElementById('checkoutBody');
+  if(!body)return;
+  body.innerHTML='<div style="font-size:13px;color:var(--mid);margin:14px 0 18px;line-height:1.5">Tell us where to send your order.</div>'
+    +field('dvName','Full Name','text',deliveryDetails.name||userName,'Clara Fontaine')
+    +field('dvPhone','Phone Number','tel',deliveryDetails.phone,'+1 (555) 123-4567')
+    +field('dvAddress','Street Address','text',deliveryDetails.address,'123 Beauty Lane, Apt 4B')
+    +'<div style="display:flex;gap:10px">'
+    +field('dvCity','City','text',deliveryDetails.city,'New York',true)
+    +field('dvState','State / Region','text',deliveryDetails.state,'NY',true)
+    +'</div>'
+    +field('dvNote','Delivery Note (optional)','text',deliveryDetails.note,'Leave at front desk')
+    +'<div style="margin-top:6px;background:white;border-radius:16px;padding:14px;border:1px solid var(--bd);display:flex;gap:10px;align-items:center"><span style="font-size:18px">🚚</span><div style="font-size:12px;color:var(--mid);line-height:1.5">Standard delivery, <b style="color:var(--ch)">3–5 business days</b>. Free on orders over $50.</div></div>';
+  function field(id,label,type,val,placeholder,half){
+    return '<div style="margin-bottom:12px'+(half?';flex:1':'')+'"><label style="font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.06em;display:block;margin-bottom:6px">'+label.toUpperCase()+'</label>'
+      +'<input id="'+id+'" type="'+type+'" value="'+(val||'')+'" placeholder="'+placeholder+'" style="width:100%;padding:13px 16px;border-radius:14px;border:1.5px solid var(--bd);font-family:Inter,sans-serif;font-size:14px;color:var(--ch);outline:none"/></div>';
+  }
+}
+function confirmDelivery(){
+  var name=document.getElementById('dvName').value.trim();
+  var phone=document.getElementById('dvPhone').value.trim();
+  var address=document.getElementById('dvAddress').value.trim();
+  var city=document.getElementById('dvCity').value.trim();
+  var state=document.getElementById('dvState').value.trim();
+  var note=document.getElementById('dvNote').value.trim();
+  if(!name||!phone||!address||!city||!state){toast('Please fill in all required delivery fields');return;}
+  deliveryDetails={name:name,phone:phone,address:address,city:city,state:state,note:note};
+  go('sPAYREVIEW');
+}
+
+/* ────────────────────────────────────────
+   PAYMENT & REVIEW
+──────────────────────────────────────── */
+function renderPayReview(){
+  var body=document.getElementById('payReviewBody');
+  if(!body)return;
+  var subtotal=cart.reduce(function(a,c){return a+c.price*c.qty},0);
+  var shipping=subtotal>=50?0:5.99;
+  var total=subtotal+shipping;
+  var def=paymentMethods.find(function(p){return p.isDefault;})||paymentMethods[0];
+  body.innerHTML='<div style="margin:14px 0 12px;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--rose)">DELIVERING TO</div>'
+    +'<div style="background:white;border-radius:16px;padding:14px;border:1px solid var(--bd);margin-bottom:18px">'
+    +'<div style="font-size:14px;font-weight:700;color:var(--ch)">'+deliveryDetails.name+'</div>'
+    +'<div style="font-size:12px;color:var(--mid);margin-top:3px;line-height:1.5">'+deliveryDetails.address+', '+deliveryDetails.city+', '+deliveryDetails.state+'</div>'
+    +'<div style="font-size:12px;color:var(--mid);margin-top:2px">'+deliveryDetails.phone+'</div>'
+    +(deliveryDetails.note?'<div style="font-size:11px;color:var(--soft);margin-top:4px;font-style:italic">Note: '+deliveryDetails.note+'</div>':'')
+    +'<div onclick="go(\'sCHECKOUT\')" style="font-size:11px;font-weight:700;color:var(--rose);margin-top:8px;cursor:pointer;text-decoration:underline">Edit address</div>'
+    +'</div>'
+    +'<div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--rose);margin-bottom:12px">PAYMENT METHOD</div>'
+    +(def?'<div style="background:white;border-radius:16px;padding:14px;border:1.5px solid var(--ch);margin-bottom:18px;display:flex;align-items:center;gap:12px"><div style="font-size:18px">💳</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ch)">'+def.brand+' •••• '+def.last4+'</div><div style="font-size:11px;color:var(--mid)">Expires '+def.exp+'</div></div><div onclick="openPaymentMethods()" style="font-size:11px;font-weight:700;color:var(--rose);cursor:pointer;text-decoration:underline">Change</div></div>'
+      :'<div style="background:white;border-radius:16px;padding:14px;border:1.5px dashed var(--bd);margin-bottom:18px;text-align:center;font-size:12px;color:var(--mid)">No card on file. <span onclick="openPaymentMethods()" style="color:var(--rose);font-weight:700;cursor:pointer;text-decoration:underline">Add one</span></div>')
+    +'<div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--rose);margin-bottom:12px">ORDER SUMMARY</div>'
+    +'<div style="background:white;border-radius:16px;padding:16px;border:1px solid var(--bd)">'
+    +cart.map(function(c){return '<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--ch);margin-bottom:8px"><span>'+c.name+' × '+c.qty+'</span><span style="font-weight:600">$'+(c.price*c.qty).toFixed(2)+'</span></div>';}).join('')
+    +'<div style="height:1px;background:var(--bd);margin:8px 0 10px"></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--mid);margin-bottom:6px"><span>Subtotal</span><span>$'+subtotal.toFixed(2)+'</span></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--mid);margin-bottom:10px"><span>Shipping</span><span>'+(shipping===0?'Free':'$'+shipping.toFixed(2))+'</span></div>'
+    +'<div style="height:1px;background:var(--bd);margin-bottom:10px"></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:var(--ch)"><span>Total</span><span>$'+total.toFixed(2)+'</span></div>'
+    +'</div>';
+}
+function placeOrder(){
+  var def=paymentMethods.find(function(p){return p.isDefault;});
+  if(!def){toast('Please add a payment method first');openPaymentMethods();return;}
+  var subtotal=cart.reduce(function(a,c){return a+c.price*c.qty},0);
+  var shipping=subtotal>=50?0:5.99;
+  var pts=Math.floor(subtotal);
+  var order={
+    id:'AURA-'+Date.now().toString().slice(-6),
+    placedAt:Date.now(),
+    items:cart.map(function(c){return {id:c.id,name:c.name,price:c.price,qty:c.qty,img:c.img};}),
+    subtotal:subtotal,
+    shipping:shipping,
+    total:subtotal+shipping,
+    delivery:Object.assign({},deliveryDetails),
+    payment:{brand:def.brand,last4:def.last4},
+    status:'Order Placed',
+    cancelled:false,
+  };
+  orders.unshift(order);
+  ordersCount=orders.length;cart=[];updateCartBadge();
+  go('sHOME');
+  addPoints(pts,'🎉 Order placed! +'+pts+' pts');
+  toast('🎉 Order confirmed — delivering to '+deliveryDetails.city+'!');
+}
+
+/* ────────────────────────────────────────
+   ORDER TRACKING
+──────────────────────────────────────── */
+function orderElapsedMs(order){return Date.now()-order.placedAt;}
+function canModifyOrder(order){return !order.cancelled && order.status!=='Delivered' && orderElapsedMs(order)<CANCEL_WINDOW_MS;}
+function simulatedStatus(order){
+  if(order.cancelled)return 'Cancelled';
+  var elapsed=orderElapsedMs(order);
+  // simulate progress: each stage every ~3s for demo purposes (since real orders take days)
+  var stageIdx=Math.min(ORDER_STAGES.length-1,Math.floor(elapsed/3000));
+  return ORDER_STAGES[stageIdx];
+}
+function renderOrdersList(){
+  var body=document.getElementById('ordersBody');
+  if(!body)return;
+  if(orders.length===0){
+    body.innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:48px;margin-bottom:16px">📦</div><div style="font-family:Playfair Display,serif;font-size:22px;font-weight:600;color:var(--ch);margin-bottom:8px">No orders yet</div><div style="font-size:14px;color:var(--mid);margin-bottom:24px">Your purchases will show up here</div><button onclick="go(\'sPRODUCTS\')" style="padding:13px 28px;background:var(--ch);border:none;border-radius:100px;color:white;font-family:Inter,sans-serif;font-size:14px;font-weight:700;cursor:pointer">Browse Products</button></div>';
+    return;
+  }
+  body.innerHTML=orders.map(function(o){
+    var status=o.cancelled?'Cancelled':simulatedStatus(o);
+    var statusColor=o.cancelled?'#EF4444':(status==='Delivered'?'#22C55E':'var(--gold)');
+    return '<div onclick="openOrderDetail(\''+o.id+'\')" style="background:white;border-radius:20px;padding:16px;margin-bottom:12px;border:1px solid var(--bd);cursor:pointer">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><div style="font-size:13px;font-weight:700;color:var(--ch)">'+o.id+'</div><div style="font-size:11px;color:var(--soft);margin-top:1px">'+new Date(o.placedAt).toLocaleDateString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})+'</div></div>'
+      +'<div style="font-size:11px;font-weight:700;color:'+statusColor+';background:'+(o.cancelled?'#FEF2F2':'#FFF8E6')+';padding:4px 10px;border-radius:100px">'+status+'</div></div>'
+      +'<div style="font-size:12px;color:var(--mid);margin-bottom:8px">'+o.items.map(function(i){return i.name+' ×'+i.qty;}).join(', ')+'</div>'
+      +'<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:15px;font-weight:700;color:var(--ch)">$'+o.total.toFixed(2)+'</span><span style="font-size:11px;color:var(--rose);font-weight:700">View details →</span></div>'
+      +'</div>';
+  }).join('');
+}
+function openOrderDetail(id){activeOrderId=id;go('sORDERDETAIL');}
+function renderOrderDetail(id){
+  var body=document.getElementById('orderDetailBody');
+  if(!body)return;
+  var order=orders.find(function(o){return o.id===id;});
+  if(!order){body.innerHTML='<div style="text-align:center;padding:40px;color:var(--mid)">Order not found.</div>';return;}
+  var status=order.cancelled?'Cancelled':simulatedStatus(order);
+  var stageIdx=ORDER_STAGES.indexOf(status);
+  var canModify=canModifyOrder(order);
+  var msLeft=CANCEL_WINDOW_MS-orderElapsedMs(order);
+  var hrsLeft=Math.max(0,msLeft/3600000);
+
+  var html='<div style="background:white;border-radius:20px;padding:18px;margin-bottom:16px;border:1px solid var(--bd)">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:15px;font-weight:700;color:var(--ch)">'+order.id+'</span><span style="font-size:11px;font-weight:700;color:'+(order.cancelled?'#EF4444':'var(--gold)')+'">'+status+'</span></div>'
+    +'<div style="font-size:11px;color:var(--soft)">Placed '+new Date(order.placedAt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})+'</div></div>';
+
+  if(!order.cancelled){
+    html+='<div style="background:white;border-radius:20px;padding:18px;margin-bottom:16px;border:1px solid var(--bd)">'
+      +'<div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--rose);margin-bottom:16px">ORDER PROGRESS</div>'
+      +ORDER_STAGES.map(function(s,i){
+        var done=i<=stageIdx;
+        return '<div style="display:flex;align-items:flex-start;gap:12px;'+(i<ORDER_STAGES.length-1?'margin-bottom:4px':'')+'">'
+          +'<div style="display:flex;flex-direction:column;align-items:center">'
+          +'<div style="width:22px;height:22px;border-radius:50%;background:'+(done?'var(--ch)':'white')+';border:2px solid '+(done?'var(--ch)':'var(--bd)')+';display:flex;align-items:center;justify-content:center;flex-shrink:0">'+(done?'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'')+'</div>'
+          +(i<ORDER_STAGES.length-1?'<div style="width:2px;height:28px;background:'+(i<stageIdx?'var(--ch)':'var(--bd)')+'"></div>':'')
+          +'</div>'
+          +'<div style="padding-top:1px"><div style="font-size:13px;font-weight:'+(done?'700':'500')+';color:'+(done?'var(--ch)':'var(--soft)')+'">'+s+'</div></div>'
+          +'</div>';
+      }).join('')
+      +'</div>';
+  }
+
+  html+='<div style="background:white;border-radius:20px;padding:18px;margin-bottom:16px;border:1px solid var(--bd)">'
+    +'<div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--rose);margin-bottom:10px">DELIVERY ADDRESS</div>'
+    +'<div style="font-size:13px;font-weight:700;color:var(--ch)">'+order.delivery.name+'</div>'
+    +'<div style="font-size:12px;color:var(--mid);margin-top:2px;line-height:1.5">'+order.delivery.address+', '+order.delivery.city+', '+order.delivery.state+'</div>'
+    +'<div style="font-size:12px;color:var(--mid);margin-top:2px">'+order.delivery.phone+'</div>'
+    +(order.delivery.note?'<div style="font-size:11px;color:var(--soft);margin-top:4px;font-style:italic">Note: '+order.delivery.note+'</div>':'')
+    +'</div>';
+
+  html+='<div style="background:white;border-radius:20px;padding:18px;margin-bottom:16px;border:1px solid var(--bd)">'
+    +'<div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--rose);margin-bottom:10px">ITEMS</div>'
+    +order.items.map(function(i){return '<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--ch);margin-bottom:8px"><span>'+i.name+' × '+i.qty+'</span><span style="font-weight:600">$'+(i.price*i.qty).toFixed(2)+'</span></div>';}).join('')
+    +'<div style="height:1px;background:var(--bd);margin:8px 0 10px"></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--mid);margin-bottom:6px"><span>Subtotal</span><span>$'+order.subtotal.toFixed(2)+'</span></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--mid);margin-bottom:10px"><span>Shipping</span><span>'+(order.shipping===0?'Free':'$'+order.shipping.toFixed(2))+'</span></div>'
+    +'<div style="height:1px;background:var(--bd);margin-bottom:10px"></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:var(--ch)"><span>Total</span><span>$'+order.total.toFixed(2)+'</span></div>'
+    +'<div style="font-size:12px;color:var(--mid);margin-top:10px">Paid with '+order.payment.brand+' •••• '+order.payment.last4+'</div>'
+    +'</div>';
+
+  if(order.cancelled){
+    html+='<div style="background:#FEF2F2;border:1px solid rgba(239,68,68,0.25);border-radius:16px;padding:14px;text-align:center;font-size:13px;color:#B91C1C;font-weight:600">This order was cancelled.</div>';
+  } else if(canModify){
+    html+='<div style="font-size:11px;color:var(--soft);text-align:center;margin-bottom:10px">'+hrsLeft.toFixed(1)+' hrs left to edit or cancel this order</div>'
+      +'<button onclick="openEditDelivery(\''+order.id+'\')" style="width:100%;padding:13px;background:white;border:1.5px solid var(--bd);border-radius:100px;font-family:Inter,sans-serif;font-size:13px;font-weight:700;color:var(--ch);cursor:pointer;margin-bottom:10px">Edit Delivery Details</button>'
+      +'<button onclick="cancelOrder(\''+order.id+'\')" style="width:100%;padding:13px;background:white;border:1.5px solid #EF4444;border-radius:100px;font-family:Inter,sans-serif;font-size:13px;font-weight:700;color:#EF4444;cursor:pointer">Cancel Order</button>';
+  } else {
+    html+='<div style="background:var(--bg);border-radius:16px;padding:14px;text-align:center;font-size:12px;color:var(--mid)">'+(status==='Delivered'?'This order has been delivered.':'The 5-hour edit & cancel window has passed.')+'</div>';
+  }
+  body.innerHTML=html;
+}
+function cancelOrder(id){
+  var order=orders.find(function(o){return o.id===id;});
+  if(!order||!canModifyOrder(order))return;
+  if(!confirm('Cancel this order? This cannot be undone.'))return;
+  order.cancelled=true;
+  toast('Order cancelled');
+  renderOrderDetail(id);
+}
+function openEditDelivery(id){
+  var order=orders.find(function(o){return o.id===id;});
+  if(!order||!canModifyOrder(order))return;
+  openSheet(
+    '<div class="hdl"></div>'
+    +'<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:600;color:var(--ch);text-align:center;margin-bottom:18px">Edit Delivery Details</div>'
+    +editField('oeName','Full Name',order.delivery.name)
+    +editField('oePhone','Phone Number',order.delivery.phone)
+    +editField('oeAddress','Street Address',order.delivery.address)
+    +editField('oeCity','City',order.delivery.city)
+    +editField('oeState','State / Region',order.delivery.state)
+    +editField('oeNote','Delivery Note',order.delivery.note)
+    +'<button onclick="saveEditDelivery(\''+id+'\')" style="width:100%;padding:14px;background:var(--ch);border:none;border-radius:100px;font-family:Playfair Display,serif;font-size:15px;font-weight:600;color:white;cursor:pointer">Save Changes</button>'
+    +'<button class="sclose" onclick="closeSheet()">Cancel</button>'
+  );
+  function editField(id2,label,val){
+    return '<div style="margin-bottom:12px"><label style="font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.06em;display:block;margin-bottom:6px">'+label.toUpperCase()+'</label>'
+      +'<input id="'+id2+'" type="text" value="'+(val||'')+'" style="width:100%;padding:13px 16px;border-radius:14px;border:1.5px solid var(--bd);font-family:Inter,sans-serif;font-size:14px;color:var(--ch);outline:none"/></div>';
+  }
+}
+function saveEditDelivery(id){
+  var order=orders.find(function(o){return o.id===id;});
+  if(!order)return;
+  var name=document.getElementById('oeName').value.trim();
+  var phone=document.getElementById('oePhone').value.trim();
+  var address=document.getElementById('oeAddress').value.trim();
+  var city=document.getElementById('oeCity').value.trim();
+  var state=document.getElementById('oeState').value.trim();
+  var note=document.getElementById('oeNote').value.trim();
+  if(!name||!phone||!address||!city||!state){toast('Please fill in all required fields');return;}
+  order.delivery={name:name,phone:phone,address:address,city:city,state:state,note:note};
+  closeSheet();
+  renderOrderDetail(id);
+  toast('✨ Delivery details updated');
+}
+
+/* ────────────────────────────────────────
+   SAVES
+──────────────────────────────────────── */
+function renderSaves(){
+  var body=document.getElementById('savesBody');
+  if(saves.length===0){
+    body.innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:48px;margin-bottom:16px">❤️</div><div style="font-family:Playfair Display,serif;font-size:22px;font-weight:600;color:var(--ch);margin-bottom:8px">Nothing saved yet</div><div style="font-size:14px;color:var(--mid);margin-bottom:24px">Heart products and bookmark articles</div><button onclick="go(\'sPRODUCTS\')" style="padding:13px 28px;background:var(--ch);border:none;border-radius:100px;color:white;font-family:Inter,sans-serif;font-size:14px;font-weight:700;cursor:pointer">Explore Shop</button></div>';return;
+  }
+  var html='';
+  saves.forEach(function(s,i){
+    html+='<div style="background:white;border-radius:20px;padding:14px;margin-bottom:10px;display:flex;gap:12px;align-items:center;border:1px solid var(--bd)">'
+      +'<img src="'+s.img+'" onerror="imgFallback(this)" style="width:60px;height:60px;object-fit:cover;border-radius:14px;flex-shrink:0" loading="lazy"/>'
+      +'<div style="flex:1"><div style="font-size:10px;font-weight:700;color:var(--rose);letter-spacing:.08em;margin-bottom:3px">'+(s.type==='video'?'ARTICLE':'PRODUCT')+'</div>'
+      +'<div style="font-size:14px;font-weight:700;color:var(--ch);line-height:1.3">'+s.title+'</div>'
+      +(s.price?'<div style="font-size:13px;font-weight:600;color:var(--mid);margin-top:2px">$'+s.price.toFixed(2)+'</div>':'')+'</div>'
+      +'<button onclick="saves.splice('+i+',1);renderSaves()" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--bd);background:transparent;cursor:pointer;color:var(--soft);font-size:16px">×</button>'
+      +'</div>';
+  });
+  body.innerHTML=html;
+}
+
+/* ────────────────────────────────────────
+   ROUTINE
+──────────────────────────────────────── */
+function renderRoutine(){
+  var body=document.getElementById('routineBody');
+  if(!routineSetup){
+    body.innerHTML='<div style="background:white;border-radius:24px;padding:22px;margin-bottom:16px;border:1px solid var(--bd)">'
+      +'<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:var(--ch);margin-bottom:6px">Set up your routine</div>'
+      +'<div style="font-size:13px;color:var(--mid);margin-bottom:18px;line-height:1.6">Choose the steps you want in your daily skincare ritual. You\'ll check them off each day to track consistency.</div>'
+      +'<div id="rtStepsList"></div>'
+      +'<button onclick="confirmRoutine()" style="width:100%;margin-top:16px;padding:14px;background:var(--ch);border:none;border-radius:100px;font-family:Playfair Display,serif;font-size:16px;font-weight:600;color:white;cursor:pointer">Start My Routine</button>'
+      +'</div>';
+    var list=document.getElementById('rtStepsList');
+    ROUTINE_STEPS.forEach(function(s){
+      var row=document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--bd);cursor:pointer';
+      row.innerHTML='<div id="rck-'+s.id+'" style="width:22px;height:22px;border-radius:6px;border:2px solid var(--bd);background:white;display:flex;align-items:center;justify-content:center;flex-shrink:0"></div>'
+        +'<div style="font-size:14px;font-weight:500;color:var(--ch)">'+s.icon+' '+s.label+'</div>'
+        +'<div style="margin-left:auto;font-size:11px;color:var(--soft)">'+s.time+'</div>';
+      row.onclick=function(){
+        routineChecked[s.id]=!routineChecked[s.id];
+        var ck=document.getElementById('rck-'+s.id);
+        ck.style.background=routineChecked[s.id]?'var(--ch)':'white';
+        ck.style.borderColor=routineChecked[s.id]?'var(--ch)':'var(--bd)';
+        ck.innerHTML=routineChecked[s.id]?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'';
+      };
+      list.appendChild(row);
+    });
+  } else {
+    var sel=ROUTINE_STEPS.filter(function(s){return routineChecked[s.id]});
+    var done=sel.filter(function(s){return s.done}).length;
+    var pct=sel.length?Math.round(done/sel.length*100):0;
+    body.innerHTML='<div style="background:white;border-radius:24px;padding:20px;margin-bottom:14px;border:1px solid var(--bd)">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div style="font-family:Playfair Display,serif;font-size:18px;font-weight:700;color:var(--ch)">Today\'s Routine</div><div style="font-size:13px;font-weight:700;color:var(--ch)">'+pct+'%</div></div>'
+      +'<div style="height:6px;background:#F0F0F0;border-radius:10px;overflow:hidden;margin-bottom:4px"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#C8A296,#C9A84C);border-radius:10px;transition:width .4s"></div></div>'
+      +'<div style="font-size:11px;color:var(--soft)">'+done+' of '+sel.length+' steps complete</div></div>'
+      +'<div id="dailySteps"></div>'
+      +'<button onclick="routineSetup=false;ROUTINE_STEPS.forEach(function(s){s.done=false});renderRoutine()" style="margin-top:14px;width:100%;padding:12px;background:transparent;border:1.5px solid var(--bd);border-radius:100px;font-family:Inter,sans-serif;font-size:13px;font-weight:600;color:var(--mid);cursor:pointer">Edit Routine</button>';
+    var ds=document.getElementById('dailySteps');
+    sel.forEach(function(step){
+      var card=document.createElement('div');
+      card.style.cssText='background:white;border-radius:20px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;border:1px solid var(--bd);cursor:pointer';
+      card.innerHTML='<div style="width:44px;height:44px;border-radius:14px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">'+step.icon+'</div>'
+        +'<div style="flex:1"><div style="font-size:15px;font-weight:700;color:'+(step.done?'var(--soft)':'var(--ch)')+';text-decoration:'+(step.done?'line-through':'none')+'">'+step.label+'</div><div style="font-size:11px;color:var(--soft);margin-top:2px">'+step.time+'</div></div>'
+        +'<div style="width:28px;height:28px;border-radius:50%;background:'+(step.done?'var(--ch)':'white')+';border:2px solid '+(step.done?'var(--ch)':'var(--bd)')+';display:flex;align-items:center;justify-content:center">'+(step.done?'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'')+'</div>';
+      card.onclick=(function(s){return function(){
+        s.done=!s.done;renderRoutine();updateHomeRoutineCard();
+        if(s.done){var allDone=sel.every(function(x){return x.done});if(allDone)addPoints(25,'🎉 Routine complete! +25 pts');}
+      }})(step);
+      ds.appendChild(card);
+    });
+  }
+}
+function confirmRoutine(){
+  if(!Object.values(routineChecked).some(Boolean)){toast('Select at least one step!');return;}
+  routineSetup=true;renderRoutine();updateHomeRoutineCard();toast('✨ Routine set! +10 pts for setting up');addPoints(10,'');
+}
+function updateHomeRoutineCard(){
+  var el=document.getElementById('rtLabel');if(!el)return;
+  if(!routineSetup){el.textContent='Set up Daily Routine';return;}
+  var sel=ROUTINE_STEPS.filter(function(s){return routineChecked[s.id]});
+  var done=sel.filter(function(s){return s.done}).length;
+  el.textContent='Daily Routine — '+Math.round(done/sel.length*100)+'% done';
+}
+
+/* ────────────────────────────────────────
+   POINTS
+──────────────────────────────────────── */
+function renderPoints(){
+  updatePointsUI();
+  var hist=document.getElementById('ptsHistory');
+  if(!hist)return;
+  hist.innerHTML=ptsHistory.map(function(h){
+    return '<div class="pts-row-item"><div class="pts-icon" style="background:#F5F5F5">'+h.icon+'</div>'
+      +'<div class="desc"><p>'+h.label+'</p><span>'+h.date+'</span></div>'
+      +'<div class="earn">'+h.pts+' pts</div></div>';
+  }).join('');
+}
+
+/* ────────────────────────────────────────
+   PROFILE
+──────────────────────────────────────── */
+function renderProfile(){
+  var pn=document.getElementById('profName'),pe=document.getElementById('profEmail'),hn=document.getElementById('homeUserName');
+  if(pn)pn.textContent=userName;
+  if(pe)pe.textContent=userEmail;
+  if(hn)hn.textContent=userName.split(' ')[0]+',';
+  var grid=document.getElementById('skinProfileGrid');
+  if(grid) grid.innerHTML=SKIN_PROFILE.map(function(s){
+    return '<div style="background:var(--bg);border-radius:14px;padding:12px">'
+      +'<div style="font-size:10px;font-weight:700;color:var(--soft);letter-spacing:.1em;margin-bottom:4px">'+s.label.toUpperCase()+'</div>'
+      +(s.hex?'<div style="display:flex;align-items:center;gap:8px"><div style="width:18px;height:18px;border-radius:50%;background:'+s.hex+'"></div><div style="font-size:14px;font-weight:700;color:var(--ch)">'+s.value+'</div></div>':'<div style="font-size:14px;font-weight:700;color:var(--ch)">'+s.value+'</div>')
+      +'</div>';
+  }).join('');
+  var menuItems=[
+    {label:'Edit Profile',action:'openEditProfile()'},
+    {label:'AURA Points & Rewards',action:"go('sPOINTS')"},
+    {label:'Notification Settings',action:'openNotifSettings()'},
+    {label:'Skin History',action:"go('sSKINHISTORY')"},
+    {label:'Payment Methods',action:'openPaymentMethods()'},
+    {label:'Help & Support',action:'openHelpSupport()'},
+    {label:'Log Out',action:'confirmLogOut()'},
+  ];
+  var menu=document.getElementById('profileMenu');
+  if(menu) menu.innerHTML=menuItems.map(function(m,i){
+    return '<div onclick="'+m.action+'" style="display:flex;align-items:center;justify-content:space-between;padding:15px 18px;cursor:pointer;'+(i>0?'border-top:1px solid var(--bd)':'')+'">'
+      +'<span style="font-size:14px;font-weight:500;color:'+(m.label==='Log Out'?'#EF4444':m.label==='AURA Points & Rewards'?'var(--gold)':'var(--ch)')+'">'+m.label+'</span>'
+      +'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--soft)" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg></div>';
+  }).join('');
+  var sc=document.getElementById('savesCount'),oc=document.getElementById('ordersCount'),pp=document.getElementById('profPts');
+  if(sc)sc.textContent=saves.length;if(oc)oc.textContent=ordersCount;if(pp)pp.textContent=userPts.toLocaleString();
+}
+
+/* ────────────────────────────────────────
+   GENERIC SHEET SYSTEM
+──────────────────────────────────────── */
+function openSheet(innerHtml){
+  var ovl=document.getElementById('genSheet');
+  document.getElementById('genSheetInner').innerHTML=innerHtml;
+  ovl.classList.add('show');
+}
+function closeSheet(){document.getElementById('genSheet').classList.remove('show');}
+
+function openEditProfile(){
+  openSheet(
+    '<div class="hdl"></div>'
+    +'<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:600;color:var(--ch);text-align:center;margin-bottom:18px">Edit Profile</div>'
+    +'<label style="font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.06em;display:block;margin-bottom:6px">FULL NAME</label>'
+    +'<input id="editName" type="text" value="'+userName+'" style="width:100%;padding:13px 16px;border-radius:14px;border:1.5px solid var(--bd);font-family:Inter,sans-serif;font-size:14px;color:var(--ch);outline:none;margin-bottom:12px"/>'
+    +'<label style="font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.06em;display:block;margin-bottom:6px">EMAIL</label>'
+    +'<input id="editEmail" type="email" value="'+userEmail+'" style="width:100%;padding:13px 16px;border-radius:14px;border:1.5px solid var(--bd);font-family:Inter,sans-serif;font-size:14px;color:var(--ch);outline:none;margin-bottom:18px"/>'
+    +'<button onclick="saveEditProfile()" style="width:100%;padding:14px;background:var(--ch);border:none;border-radius:100px;font-family:Playfair Display,serif;font-size:15px;font-weight:600;color:white;cursor:pointer">Save Changes</button>'
+    +'<button class="sclose" onclick="closeSheet()">Cancel</button>'
+  );
+}
+function saveEditProfile(){
+  var n=document.getElementById('editName').value.trim();
+  var e=document.getElementById('editEmail').value.trim();
+  if(!n||!e){toast('Please fill in all fields');return;}
+  userName=n;userEmail=e;
+  renderProfile();closeSheet();toast('✨ Profile updated!');
+}
+
+function openNotifSettings(){
+  var items=[
+    {key:'promos',label:'Promotions & Offers',sub:'Discounts, sales, and rewards'},
+    {key:'orders',label:'Order Updates',sub:'Shipping and delivery status'},
+    {key:'tips',label:'Skincare Tips',sub:'Daily advice and reminders'},
+    {key:'consult',label:'Consultation Replies',sub:'When your beautician responds'},
+  ];
+  openSheet(
+    '<div class="hdl"></div>'
+    +'<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:600;color:var(--ch);text-align:center;margin-bottom:18px">Notification Settings</div>'
+    +items.map(function(it){
+      var on=notifSettings[it.key];
+      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 4px;border-bottom:1px solid var(--bd)">'
+        +'<div><div style="font-size:14px;font-weight:600;color:var(--ch)">'+it.label+'</div><div style="font-size:11px;color:var(--mid);margin-top:1px">'+it.sub+'</div></div>'
+        +'<div onclick="toggleNotif(\''+it.key+'\')" id="notifToggle-'+it.key+'" style="width:44px;height:26px;border-radius:100px;background:'+(on?'var(--ch)':'#E5E5E5')+';position:relative;cursor:pointer;flex-shrink:0;transition:background .2s">'
+        +'<div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;top:3px;left:'+(on?'21px':'3px')+';transition:left .2s;box-shadow:0 1px 4px rgba(0,0,0,.2)"></div></div>'
+        +'</div>';
+    }).join('')
+    +'<button class="sclose" onclick="closeSheet()" style="margin-top:14px">Done</button>'
+  );
+}
+function toggleNotif(key){
+  notifSettings[key]=!notifSettings[key];
+  var on=notifSettings[key];
+  var t=document.getElementById('notifToggle-'+key);
+  t.style.background=on?'var(--ch)':'#E5E5E5';
+  t.firstElementChild.style.left=on?'21px':'3px';
+}
+
+function openPaymentMethods(){
+  renderPaymentSheet();
+}
+function renderPaymentSheet(){
+  openSheet(
+    '<div class="hdl"></div>'
+    +'<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:600;color:var(--ch);text-align:center;margin-bottom:18px">Payment Methods</div>'
+    +'<div id="pmList">'+paymentMethods.map(function(pm){
+      return '<div style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:16px;border:1.5px solid '+(pm.isDefault?'var(--ch)':'var(--bd)')+';margin-bottom:10px">'
+        +'<div style="width:40px;height:40px;border-radius:12px;background:#F0F0F0;display:flex;align-items:center;justify-content:center;font-size:18px">💳</div>'
+        +'<div style="flex:1"><div style="font-size:14px;font-weight:700;color:var(--ch)">'+pm.brand+' •••• '+pm.last4+'</div><div style="font-size:11px;color:var(--mid)">Expires '+pm.exp+(pm.isDefault?' · Default':'')+'</div></div>'
+        +(pm.isDefault?'':'<button onclick="setDefaultPayment('+pm.id+')" style="font-size:11px;font-weight:700;color:var(--rose);background:transparent;border:none;cursor:pointer">SET DEFAULT</button>')
+        +'<button onclick="removePayment('+pm.id+')" style="width:26px;height:26px;border-radius:50%;border:1px solid var(--bd);background:transparent;cursor:pointer;color:var(--soft);font-size:14px">×</button>'
+        +'</div>';
+    }).join('')+'</div>'
+    +'<button onclick="addPaymentMethod()" style="width:100%;padding:13px;background:var(--bg);border:1.5px dashed var(--bd);border-radius:14px;font-family:Inter,sans-serif;font-size:13px;font-weight:700;color:var(--ch);cursor:pointer;margin-top:4px">+ Add New Card</button>'
+    +'<button class="sclose" onclick="closeSheet()" style="margin-top:10px">Close</button>'
+  );
+}
+function setDefaultPayment(id){
+  paymentMethods.forEach(function(p){p.isDefault=(p.id===id);});
+  renderPaymentSheet();toast('Default payment updated');
+}
+function removePayment(id){
+  if(paymentMethods.length<=1){toast("You need at least one payment method");return;}
+  var wasDefault=paymentMethods.find(function(p){return p.id===id;}).isDefault;
+  paymentMethods=paymentMethods.filter(function(p){return p.id!==id;});
+  if(wasDefault&&paymentMethods.length)paymentMethods[0].isDefault=true;
+  renderPaymentSheet();toast('Card removed');
+}
+function addPaymentMethod(){
+  var n=paymentMethods.length+1;
+  var brands=['Visa','Mastercard','Amex'];
+  var nm={id:Date.now(),brand:brands[n%brands.length],last4:String(1000+Math.floor(Math.random()*8999)).slice(0,4),exp:'0'+(1+Math.floor(Math.random()*9))+'/2'+(8+Math.floor(Math.random()*3)),isDefault:paymentMethods.length===0};
+  paymentMethods.push(nm);
+  renderPaymentSheet();toast('💳 Card added!');
+}
+
+function openHelpSupport(){
+  var faqs=[
+    {q:'How does the skin scan work?',a:'Upload or take a selfie and our AI analyses your skin tone, texture, and concerns to give personalised recommendations.'},
+    {q:'How do I earn AURA points?',a:'Earn points through purchases, consultations, daily check-ins, completing your routine, and referring friends. See the Points screen for the full list.'},
+    {q:'How does the Beautician chat work?',a:'Your first response from AURA Beautician is free. After that, each response costs 100 points. Top up anytime from the chat or Points screen.'},
+    {q:'Can I return a product?',a:'Yes — items can be returned within 30 days of delivery in original packaging. Contact support to start a return.'},
+  ];
+  openSheet(
+    '<div class="hdl"></div>'
+    +'<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:600;color:var(--ch);text-align:center;margin-bottom:6px">Help & Support</div>'
+    +'<div style="font-size:12px;color:var(--mid);text-align:center;margin-bottom:18px">We are here to help, '+userName.split(' ')[0]+'</div>'
+    +faqs.map(function(f){
+      return '<div style="padding:12px 4px;border-bottom:1px solid var(--bd)"><div style="font-size:13px;font-weight:700;color:var(--ch);margin-bottom:4px">'+f.q+'</div><div style="font-size:12px;color:var(--mid);line-height:1.5">'+f.a+'</div></div>';
+    }).join('')
+    +'<button onclick="closeSheet();toast(\'📧 Opening support@aurabeauty.com...\')" style="width:100%;margin-top:16px;padding:13px;background:var(--ch);border:none;border-radius:100px;font-family:Inter,sans-serif;font-size:13px;font-weight:700;color:white;cursor:pointer">Contact Support</button>'
+    +'<button class="sclose" onclick="closeSheet()">Close</button>'
+  );
+}
+
+/* ────────────────────────────────────────
+   INIT
+──────────────────────────────────────── */
+renderHomeVids();
+buildGallery();
+renderVideos();
+renderProducts();
+renderPoints();
+</script>
+</body>
+</html>
